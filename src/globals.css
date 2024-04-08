@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  @apply box-border;
+}
+
+body {
+  -webkit-font-smoothing: antialiased
+}
+
+body {
+  @apply bg-gradient-to-b from-[#060606] to-[#121214] text-zinc-100 h-full m-0;
+}
+
+html, #root, body {
+  @apply h-full;
+}
