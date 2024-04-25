@@ -4,7 +4,7 @@ import ScrollArrow from "./components/ScrollArrow"
 
 function App() {
   return (
-    <div className="h-full">
+    <div className="h-full bg-transparent">
       <Header />
       <div className="w-full h-[calc(100%-64px)] flex flex-col justify-center p-6">
         <div className="mb-28 flex flex-col items-center">
@@ -25,6 +25,9 @@ function App() {
           />
         </div>
         <ScrollArrow />
+      </div>
+      <div className="flex items-center flex-col mt-6">
+        <h2 className="text-[2.4rem]">Skills</h2>
       </div>
     </div>
   )

@@ -11,12 +11,12 @@ body {
 }
 
 body {
-  @apply bg-[#060606] text-zinc-100 h-full m-0 p-0;
+  @apply bg-[url('src/assets/bg.jpg')] bg-cover bg-fixed text-zinc-100 h-full w-full m-0 p-0;
 }
 
 html,
-#root,
-body {
+#root
+ {
   @apply h-full;
 }
 
