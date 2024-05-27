@@ -1,10 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Logo from "./Logo";
 import burgerIcon from "../assets/list.svg";
 import closeIcon from "../assets/x.svg";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    function handleScroll() {
+      const scrolled = window.scrollY > 100;
+      if (scrolled !== isScrolled) {
+        setIsScrolled(scrolled);
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isScrolled]);
 
   useEffect(() => {
     if (isOpen) {
@@ -20,7 +34,12 @@ export default function Header() {
 
   return (
     <>
-      <header className="flex z-20 items-center justify-between fixed p-4 px-6 border-b border-slate-200 shadow md:px-8 flex-wrap mx-auto w-full backdrop-blur-sm bg-white/80">
+      <header
+        className={`flex z-20 items-center transition-all duration-150 justify-between fixed p-4 px-6  md:px-8 flex-wrap mx-auto w-full ${
+          isScrolled &&
+          "border-b border-slate-200 shadow backdrop-blur-sm bg-white/65"
+        }`}
+      >
         <Logo />
         <div onClick={() => setIsOpen(!isOpen)} className="cursor-pointer">
           {!isOpen ? (
