@@ -1,27 +1,28 @@
 import { useEffect, useRef, useState } from "react";
 
 export default function ScrollArrow() {
-  const [isVisible, setIsVisible] = useState(true);
-  const ref = useRef<HTMLDivElement>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => {
-      const element = ref.current;
-      if (element) {
-        const { top } = element.getBoundingClientRect();
-        setIsVisible(top > window.innerHeight)
+    function handleScroll() {
+      const scrolled = window.scrollY > 100;
+      if (scrolled !== isScrolled) {
+        setIsScrolled(scrolled);
       }
     }
 
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isScrolled]);
 
   return (
-    <div ref={ref} className={`scrollWrapper ${isVisible ? "opacity-100" : "opacity-0"}`} >
+    <div
+      className={`scrollWrapper ${!isScrolled ? "opacity-100" : "opacity-0"}`}
+    >
       <span className="arrowSpan"></span>
       <span className="arrowSpan"></span>
       <span className="arrowSpan"></span>
     </div>
-  )
+  );
 }
