@@ -42,23 +42,19 @@ export default function Header() {
       >
         <Logo />
         <div onClick={() => setIsOpen(!isOpen)} className="cursor-pointer">
-          {!isOpen ? (
-            <img src={burgerIcon} alt="burger button" />
-          ) : (
-            <img src={closeIcon} alt="close button" />
-          )}
+          <img src={burgerIcon} alt="burger button" />
         </div>
       </header>
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
-          className="absolute h-[calc(100%-64px)] w-screen z-10 overflow-hidden bg-black opacity-60"
+          className="absolute h-[calc(100%)] w-screen z-10 overflow-hidden bg-black opacity-60"
         />
       )}
       <div
         className={
           isOpen
-            ? "fixed w-full h-[calc(100%-64px)] bg-black py-4 translate-x-[45%] z-20 transition-all ease-in-out duration-300"
+            ? "fixed w-full h-[calc(100%)] bg-white py-4 translate-x-[45%] z-20 transition-all ease-in-out duration-300"
             : "fixed w-full z-20 h-screen translate-x-[100%] transition-all ease-in-out duration-300"
         }
       >
