@@ -6,7 +6,7 @@ export default function Home() {
       <span className="font-canada text-lg font-semibold">
         Hello There! I'm
       </span>
-      <h1 className="font-canada font-semibold text-4xl bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-green-800">
+      <h1 className="font-canada font-semibold text-4xl bg-clip-text text-center text-transparent bg-gradient-to-r from-green-500 to-green-800">
         Maurício Rodrigues
       </h1>
       <p className="text-slate-700 font-semibold text-center text-lg mb-4">

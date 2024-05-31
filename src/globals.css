@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 * {
-  @apply box-border;
+  @apply box-border m-0 p-0;
 }
 
 body {
