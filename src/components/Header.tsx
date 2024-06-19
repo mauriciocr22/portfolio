@@ -48,13 +48,13 @@ export default function Header() {
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
-          className="absolute h-[calc(100%)] w-screen z-10 overflow-hidden bg-black opacity-60"
+          className="fixed h-screen w-screen z-30 overflow-hidden bg-black opacity-60"
         />
       )}
       <div
         className={
           isOpen
-            ? "fixed w-full h-[calc(100%)] bg-white py-4 translate-x-[45%] z-20 transition-all ease-in-out duration-300"
+            ? "fixed w-full h-[calc(100%)] bg-white py-4 translate-x-[45%] z-40 transition-all ease-in-out duration-300"
             : "fixed w-full z-20 h-screen translate-x-[100%] transition-all ease-in-out duration-300"
         }
       >
