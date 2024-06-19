@@ -26,3 +26,24 @@ html,
 .arrowSpan {
   @apply block w-5 h-5 border-b border-r border-green-600 border-solid rotate-45 -m-[10px] animate-scroll;
 }
+
+@layer components {
+  .scrollbar::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #f7f4edf6;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #16a34a8e;
+    border-radius: 100vh;
+    border: 2px solid #f6f7ed;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #c0a0b9;
+  }
+}

@@ -2,13 +2,15 @@ import selfieImg from "../assets/foto.jpg";
 
 export default function About() {
   return (
-    <section className="h-[38rem] flex justify-center items-center w-full bg-green-600">
-      <div className="bg-white w-4/5 h-3/4 rounded-md shadow-md p-8 flex flex-col">
-        <div className="flex flex-row mb-4 items-center">
-          <img src={selfieImg} alt="" className="rounded-full w-16 mr-3" />
-          <span className="font-medium h-6">Maurício Rodrigues</span>
+    <section className="py-12 flex items-center w-full flex-col bg-green-600">
+      <div className="bg-white w-4/5 h-4/5 rounded-md shadow-md p-8 flex flex-col">
+        <div className="flex flex-col mb-4 items-center">
+          <img src={selfieImg} alt="" className="rounded-full w-36 mb-2" />
+          <span className="font-semibold text-xl mb-4 after:">
+            Maurício Rodrigues
+          </span>
         </div>
-        <div className="overflow-y-scroll h-64 pr-2 mb-4">
+        <div className="overflow-y-scroll h-72 pr-2 mb-4 scrollbar">
           <p className="">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis,
             est nesciunt. Quisquam nisi voluptate eligendi praesentium ipsam
