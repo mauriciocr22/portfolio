@@ -19,7 +19,7 @@ export default function Skills() {
       <h2 className="text-3xl text-slate-600 font-semibold mb-6 border-b-2 font-canada border-slate-600">
         Skills
       </h2>
-      <div className="grid w-full grid-cols-3 gap-y-4 place-items-center">
+      <div className="grid w-full grid-cols-3 gap-y-4  place-items-center">
         <SkillsCard icon={RiHtml5Fill} skillName="HTML5" />
         <SkillsCard icon={RiCss3Fill} skillName="CSS3" />
         <SkillsCard

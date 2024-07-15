@@ -79,13 +79,13 @@ export default function Portfolio() {
   return (
     <section className="w-full flex flex-col items-center px-7">
       <h2 className="text-3xl text-slate-600 font-semibold mb-6 border-b-2 font-canada border-slate-600">
-        Portfolio
+        Projects
       </h2>
       <div>
         {repos.map((repo) => (
           <div
             key={repo.id}
-            className="mb-4 w-full h-full flex space-between border border-gray-500 rounded-md"
+            className="mb-4 w-full h-full iphone:h-24 flex space-between border border-gray-500 rounded-md"
           >
             <div className="w-9/12 p-3">
               <h3 className="font-medium text-lg font-canada mb-1">

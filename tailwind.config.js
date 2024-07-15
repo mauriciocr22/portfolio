@@ -24,6 +24,9 @@ module.exports = {
         },
       },
     },
+    screens: {
+      iphone: "330px",
+    },
   },
   plugins: [],
 };
