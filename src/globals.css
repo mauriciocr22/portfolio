@@ -27,6 +27,14 @@ html,
   @apply block w-5 h-5 border-b border-r border-green-600 border-solid rotate-45 -m-[10px] animate-scroll;
 }
 
+.contact a * {
+  @apply w-10 h-10 text-white;
+}
+
+.contact a {
+  @apply border rounded-md border-gray-500 p-2 bg-[#169444];
+}
+
 @layer components {
   .scrollbar::-webkit-scrollbar {
     width: 10px;
