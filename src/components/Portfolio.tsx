@@ -77,7 +77,7 @@ export default function Portfolio() {
   }, [fetchRepos]);
 
   return (
-    <section className="w-full flex flex-col items-center px-7">
+    <section className="w-full flex flex-col items-center px-7 mb-12">
       <h2 className="text-3xl text-slate-600 font-semibold mb-6 border-b-2 font-canada border-slate-600">
         Projects
       </h2>
@@ -96,7 +96,7 @@ export default function Portfolio() {
             <div className="w-3/12">
               <a
                 href={repo.url}
-                className="h-full w-full text-white font-medium text-lg bg-green-600 flex items-center justify-center py-2 px-4"
+                className="h-full w-full text-white font-medium text-lg bg-[#169444] flex items-center justify-center py-2 px-4"
                 target="_blank"
                 rel="noopener noreferrer"
               >
