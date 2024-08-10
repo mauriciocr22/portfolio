@@ -2,16 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+html {
+  scroll-behavior: smooth !important;
+}
+
 * {
   @apply box-border m-0 p-0;
 }
 
 body {
-  -webkit-font-smoothing: antialiased;
+  @apply bg-gradient-to-r from-white to-black/15 h-full w-full m-0 p-0;
 }
 
-body {
-  @apply bg-gradient-to-r from-white to-black/15 h-full w-full m-0 p-0;
+section {
+  @apply scroll-mt-[15vh];
 }
 
 html,

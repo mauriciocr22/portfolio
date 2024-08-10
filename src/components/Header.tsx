@@ -58,11 +58,31 @@ export default function Header() {
         }
       >
         <ul className="list-none">
-          <li><a href="#home" onClick={() => setIsOpen(false)}>Home</a></li>
-          <li><a href="#about" onClick={() => setIsOpen(false)}>Sobre mim</a></li>
-          <li><a href="#skills" onClick={() => setIsOpen(false)}>Habilidades</a></li>
-          <li><a href="#portfolio" onClick={() => setIsOpen(false)}>Projetos</a></li>
-          <li><a href="#contact" onClick={() => setIsOpen(false)}>Contato</a></li>
+          <li>
+            <a href="#home" onClick={() => setIsOpen(false)}>
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="#about" onClick={() => setIsOpen(false)}>
+              Sobre mim
+            </a>
+          </li>
+          <li>
+            <a href="#skills" onClick={() => setIsOpen(false)}>
+              Habilidades
+            </a>
+          </li>
+          <li>
+            <a href="#portfolio" onClick={() => setIsOpen(false)}>
+              Projetos
+            </a>
+          </li>
+          <li>
+            <a href="#contact" onClick={() => setIsOpen(false)}>
+              Contato
+            </a>
+          </li>
         </ul>
       </div>
     </>
