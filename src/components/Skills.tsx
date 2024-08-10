@@ -15,7 +15,7 @@ import {
 
 export default function Skills() {
   return (
-    <section className="w-full pb-12 pt-6 px-2 flex flex-col items-center">
+    <section id="skills" className="w-full pb-12 pt-6 px-2 flex flex-col items-center">
       <h2 className="text-3xl text-slate-600 font-semibold mb-6 border-b-2 font-canada border-slate-600">
         Skills
       </h2>

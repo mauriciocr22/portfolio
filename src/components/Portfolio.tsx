@@ -77,7 +77,7 @@ export default function Portfolio() {
   }, [fetchRepos]);
 
   return (
-    <section className="w-full flex flex-col items-center px-7 mb-12">
+    <section id="portfolio" className="w-full flex flex-col items-center px-7 mb-12">
       <h2 className="text-3xl text-slate-600 font-semibold mb-6 border-b-2 font-canada border-slate-600">
         Projects
       </h2>

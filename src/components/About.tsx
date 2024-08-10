@@ -2,7 +2,7 @@ import selfieImg from "../assets/foto.jpg";
 
 export default function About() {
   return (
-    <section className="py-12 flex items-center w-full flex-col bg-[#27996a]">
+    <section id="about" className="py-12 flex items-center w-full flex-col bg-[#27996a]">
       <div className="bg-white w-4/5 h-4/5 rounded-md shadow-md p-8 flex flex-col">
         <div className="flex flex-col mb-4 items-center">
           <img src={selfieImg} alt="" className="rounded-full w-36 mb-2" />

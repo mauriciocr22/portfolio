@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Logo from "./Logo";
 import burgerIcon from "../assets/list.svg";
-import closeIcon from "../assets/x.svg";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -59,9 +58,11 @@ export default function Header() {
         }
       >
         <ul className="list-none">
-          <li>Sobre</li>
-          <li>Projetos</li>
-          <li>Contatos</li>
+          <li><a href="#home" onClick={() => setIsOpen(false)}>Home</a></li>
+          <li><a href="#about" onClick={() => setIsOpen(false)}>Sobre mim</a></li>
+          <li><a href="#skills" onClick={() => setIsOpen(false)}>Habilidades</a></li>
+          <li><a href="#portfolio" onClick={() => setIsOpen(false)}>Projetos</a></li>
+          <li><a href="#contact" onClick={() => setIsOpen(false)}>Contato</a></li>
         </ul>
       </div>
     </>

@@ -1,9 +1,9 @@
 import { FaLinkedin } from "react-icons/fa";
 import { IoMdMail, IoLogoWhatsapp } from "react-icons/io";
 
-export function Contact() {
+export default function Contact() {
   return (
-    <section className="w-full flex flex-col items-center px-7">
+    <section id="contact" className="w-full flex flex-col items-center px-7">
       <h2 className="text-2xl text-slate-600 font-semibold mb-6 font-canada">
         Feel free to contact me!
       </h2>

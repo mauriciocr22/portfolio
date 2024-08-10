@@ -2,7 +2,7 @@ import ScrollArrow from "./ScrollArrow";
 
 export default function Home() {
   return (
-    <section className="flex flex-col w-full h-full items-center justify-center px-8">
+    <section id="home" className="flex flex-col w-full h-full items-center justify-center px-8">
       <span className="font-canada text-lg font-semibold">
         Hello There! I'm
       </span>
