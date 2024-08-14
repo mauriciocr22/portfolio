@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { IoMdClose } from "react-icons/io";
+import { FiMenu } from "react-icons/fi";
 import Logo from "./Logo";
-import burgerIcon from "../assets/list.svg";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,14 +35,18 @@ export default function Header() {
   return (
     <>
       <header
-        className={`flex z-20 items-center transition-all duration-150 justify-between fixed p-4 px-6  md:px-8 flex-wrap mx-auto w-full ${
+        className={`flex z-20 h-[62px] items-center transition-all duration-150 justify-between fixed p-4 px-6  md:px-8 flex-wrap mx-auto w-full ${
           isScrolled &&
           "border-b border-slate-200 shadow backdrop-blur-sm bg-white/65"
         }`}
       >
         <Logo />
-        <div onClick={() => setIsOpen(!isOpen)} className="cursor-pointer">
-          <img src={burgerIcon} alt="burger button" />
+        <div
+          onClick={() => setIsOpen(!isOpen)}
+          className={!isOpen ? "cursor-pointer" : "hidden cursor-pointer"}
+        >
+          {/* <img src={burgerIcon} alt="burger button" /> */}
+          <FiMenu size={30} className="text-green-700" />
         </div>
       </header>
       {isOpen && (
@@ -53,11 +58,17 @@ export default function Header() {
       <div
         className={
           isOpen
-            ? "fixed w-full h-[calc(100%)] bg-white py-4 translate-x-[45%] z-40 transition-all ease-in-out duration-300"
+            ? "fixed w-56 h-[calc(100%)] bg-white translate-x-[90%] z-40 transition-all ease-in-out duration-300"
             : "fixed w-full z-20 h-screen translate-x-[100%] transition-all ease-in-out duration-300"
         }
       >
-        <ul className="list-none">
+        <div
+          onClick={() => setIsOpen(!isOpen)}
+          className="p-4 px-6 flex justify-end"
+        >
+          <IoMdClose size={30} className="text-green-700" />
+        </div>
+        <ul className="navlist">
           <li>
             <a href="#home" onClick={() => setIsOpen(false)}>
               Home

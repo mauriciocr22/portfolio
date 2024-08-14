@@ -43,6 +43,17 @@ html,
   @apply border rounded-md border-gray-500 p-2 bg-[#169444];
 }
 
+.navlist {
+  @apply list-none;
+}
+
+.navlist li {
+  @apply px-2 mb-1 hover:bg-green-600 hover:text-white;
+}
+.navlist a {
+  @apply font-semibold text-xl;
+}
+
 @layer components {
   .scrollbar::-webkit-scrollbar {
     width: 10px;
