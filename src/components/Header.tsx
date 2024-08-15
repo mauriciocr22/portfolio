@@ -83,13 +83,13 @@ export default function Header() {
       <div
         className={
           isOpen
-            ? "fixed w-56 h-[calc(100%)] bg-white translate-x-[90%] z-40 transition-all ease-in-out duration-300 md:hidden"
+            ? "fixed w-full h-[calc(100%)] bg-white translate-x-[50%] z-40 transition-all ease-in-out duration-300 md:hidden"
             : "fixed w-full z-20 h-screen translate-x-[100%] transition-all ease-in-out duration-300 md:hidden"
         }
       >
         <div
           onClick={() => setIsOpen(!isOpen)}
-          className="p-4 px-8 flex justify-end"
+          className="p-4 px-6 flex justify-end w-1/2"
         >
           <IoMdClose size={30} className="text-green-700" />
         </div>
