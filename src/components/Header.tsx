@@ -40,35 +40,60 @@ export default function Header() {
           "border-b border-slate-200 shadow backdrop-blur-sm bg-white/65"
         }`}
       >
-        <Logo />
-        <div
-          onClick={() => setIsOpen(!isOpen)}
-          className={!isOpen ? "cursor-pointer" : "hidden cursor-pointer"}
-        >
-          {/* <img src={burgerIcon} alt="burger button" /> */}
-          <FiMenu size={30} className="text-green-700" />
+        <div className="flex items-center w-full md:w-[1152px] mt-0 mx-auto justify-between">
+          <Logo />
+          <nav className="desktopNav hidden md:inline-block">
+            <ul className="flex flex-row gap-8">
+              <li>
+                <a href="#home">Home</a>
+              </li>
+              <li>
+                <a href="#about">About</a>
+              </li>
+              <li>
+                <a href="#skills">Skills</a>
+              </li>
+              <li>
+                <a href="#portfolio">Projects</a>
+              </li>
+              <li>
+                <a href="#contact">Contact</a>
+              </li>
+            </ul>
+          </nav>
+          <div
+            onClick={() => setIsOpen(!isOpen)}
+            className={
+              !isOpen
+                ? "cursor-pointer md:hidden"
+                : "hidden cursor-pointer md:hidden"
+            }
+          >
+            {/* <img src={burgerIcon} alt="burger button" /> */}
+            <FiMenu size={30} className="text-green-700" />
+          </div>
         </div>
       </header>
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
-          className="fixed h-screen w-screen z-30 overflow-hidden bg-black opacity-60"
+          className="fixed h-screen w-screen z-30 overflow-hidden bg-black opacity-60 md:hidden"
         />
       )}
       <div
         className={
           isOpen
-            ? "fixed w-56 h-[calc(100%)] bg-white translate-x-[90%] z-40 transition-all ease-in-out duration-300"
-            : "fixed w-full z-20 h-screen translate-x-[100%] transition-all ease-in-out duration-300"
+            ? "fixed w-56 h-[calc(100%)] bg-white translate-x-[90%] z-40 transition-all ease-in-out duration-300 md:hidden"
+            : "fixed w-full z-20 h-screen translate-x-[100%] transition-all ease-in-out duration-300 md:hidden"
         }
       >
         <div
           onClick={() => setIsOpen(!isOpen)}
-          className="p-4 px-6 flex justify-end"
+          className="p-4 px-8 flex justify-end"
         >
           <IoMdClose size={30} className="text-green-700" />
         </div>
-        <ul className="navlist">
+        <ul className="navList">
           <li>
             <a href="#home" onClick={() => setIsOpen(false)}>
               Home
@@ -76,22 +101,22 @@ export default function Header() {
           </li>
           <li>
             <a href="#about" onClick={() => setIsOpen(false)}>
-              Sobre mim
+              About
             </a>
           </li>
           <li>
             <a href="#skills" onClick={() => setIsOpen(false)}>
-              Habilidades
+              Skills
             </a>
           </li>
           <li>
             <a href="#portfolio" onClick={() => setIsOpen(false)}>
-              Projetos
+              Projects
             </a>
           </li>
           <li>
             <a href="#contact" onClick={() => setIsOpen(false)}>
-              Contato
+              Contact
             </a>
           </li>
         </ul>

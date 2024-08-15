@@ -43,15 +43,19 @@ html,
   @apply border rounded-md border-gray-500 p-2 bg-[#169444];
 }
 
-.navlist {
+.navList {
   @apply list-none;
 }
 
-.navlist li {
-  @apply px-2 mb-1 hover:bg-green-600 hover:text-white;
+.navList li {
+  @apply px-4 mb-1 hover:bg-green-600 hover:text-white;
 }
-.navlist a {
+.navList a {
   @apply font-semibold text-xl;
+}
+
+.desktopNav li {
+  @apply font-semibold text-green-700 text-lg;
 }
 
 @layer components {
