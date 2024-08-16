@@ -40,7 +40,7 @@ export default function Header() {
           "border-b border-slate-200 shadow backdrop-blur-sm bg-white/65"
         }`}
       >
-        <div className="flex items-center w-full md:w-[1152px] mt-0 mx-auto justify-between">
+        <div className="flex items-center w-full md:w-[1000px] mt-0 mx-auto justify-between">
           <Logo />
           <nav className="desktopNav hidden md:inline-block">
             <ul className="flex flex-row gap-8">

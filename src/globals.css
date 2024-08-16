@@ -40,7 +40,7 @@ html,
 }
 
 .contact a {
-  @apply border rounded-md border-gray-500 p-2 bg-[#169444];
+  @apply border rounded-md border-gray-500 p-2 bg-[#169444] md:hover:bg-green-700 transition-colors duration-100;
 }
 
 .navList {
