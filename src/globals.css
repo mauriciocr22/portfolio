@@ -58,6 +58,18 @@ html,
   @apply font-semibold text-green-700 text-lg cursor-pointer relative after:content-[""] after:absolute after:h-[2px] after:left-0 after:bottom-0 after:w-0 after:bg-green-700 after:transition-all hover:after:w-full;
 }
 
+.aboutContact {
+  @apply hidden md:flex gap-3;
+}
+
+.aboutContact a * {
+  @apply w-8 h-8 text-slate-700;
+}
+
+.aboutContact a:hover * {
+  @apply text-green-700 transition-all;
+}
+
 @layer components {
   .scrollbar::-webkit-scrollbar {
     width: 10px;
