@@ -1,6 +1,7 @@
 import selfieImg from "../assets/foto.jpg";
 import { FaLinkedin, FaInstagram } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
+import curriculumPDF from "../assets/curriculum.pdf";
 
 export default function About() {
   return (
@@ -8,12 +9,12 @@ export default function About() {
       id="about"
       className="py-12 flex items-center w-full flex-col bg-[#27996a] scroll-mt-[10vh]"
     >
-      <div className="bg-white w-4/5 h-4/5 rounded-md shadow-md p-8 flex flex-col md:w-[850px] md:flex-row md:items-center">
+      <div className="bg-white rounded-md shadow-md p-8 flex gap-2 flex-col md:w-[850px] md:flex-row md:items-center">
         <div className="flex flex-col mb-4 items-center md:mb-0">
           <img
             src={selfieImg}
             alt=""
-            className="rounded-full w-36 mb-2 md:w-2/3 md:mb-4"
+            className="rounded-full w-36 mb-2 md:w-5/6 md:mb-4"
           />
           <span className="font-semibold text-xl mb-4 md:text-2xl">
             Maurício Rodrigues
@@ -31,21 +32,26 @@ export default function About() {
           </div>
         </div>
         <div>
-          <div className="overflow-y-scroll md:overflow-visible h-72 md:h-60 pr-2 mb-4 scrollbar">
-            <p className="">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Corporis, est nesciunt. Quisquam nisi voluptate eligendi
-              praesentium ipsam beatae ex accusantium earum nulla aperiam. Ipsum
-              atque blanditiis dolor alias assumenda a. Lorem ipsum dolor, sit
-              amet consectetur adipisicing elit. Corporis, est nesciunt.
-              Quisquam nisi voluptate eligendi praesentium ipsam beatae ex
-              accusantium earum nulla aperiam. Ipsum atque blanditiis dolor
-              alias assumenda a.
+          <div className="overflow-y-scroll md:overflow-visible h-72 pr-2 mb-4 scrollbar">
+            <p className="text-lg">
+              I'm a Brazilian developer with a deep passion for coding, and most
+              of what I know comes from rolling up my sleeves and diving into
+              projects. I'm currently enrolled in an Internet Systems course at
+              FATEC Rubens Lara, but I've spent a lot of time teaching myself
+              the ins and outs of web development, especially with React,
+              TailwindCSS, and Node.js. I love creating sleek, functional web
+              apps and am always eager to learn more and tackle new challenges
+              in the tech world. If you’d like to learn more about me, feel free
+              to reach out or download my resume!
             </p>
           </div>
-          <button className="w-full bg-green-600 text-white rounded-sm h-14 md:hover:bg-green-700 transition-colors duration-75">
+          <a
+            href={curriculumPDF}
+            download="mauricio_curriculum.pdf"
+            className="w-full bg-green-600 text-white rounded-sm h-14 flex items-center justify-center md:hover:bg-green-700 transition-colors duration-75"
+          >
             Download Resume
-          </button>
+          </a>
         </div>
       </div>
     </section>
