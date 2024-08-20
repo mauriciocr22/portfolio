@@ -1,5 +1,5 @@
 import { FaLinkedin } from "react-icons/fa";
-import { IoMdMail, IoLogoWhatsapp } from "react-icons/io";
+import { IoLogoWhatsapp } from "react-icons/io";
 
 export default function Contact() {
   return (
