@@ -99,7 +99,7 @@ export default function Portfolio() {
             <div className="w-3/12">
               <a
                 href={repo.url}
-                className="h-full w-full text-white font-medium text-lg bg-[#169444] flex items-center justify-center py-2 px-4 md:hover:bg-green-700 transition-colors duration-100"
+                className="h-full w-full projectsButton text-white font-medium text-lg bg-[#169444] flex items-center justify-center py-2 px-4 md:hover:bg-green-700 transition-colors duration-100"
                 target="_blank"
                 rel="noopener noreferrer"
               >

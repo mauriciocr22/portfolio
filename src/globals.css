@@ -70,6 +70,10 @@ html,
   @apply text-green-700 transition-all;
 }
 
+.projectsButton {
+  border-radius: 0 4px 4px 0;
+}
+
 @layer components {
   .scrollbar::-webkit-scrollbar {
     width: 10px;
