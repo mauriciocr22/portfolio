@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
+import useDarkMode from "../hooks/useDarkMode";
 import { IoMdClose } from "react-icons/io";
-import { FiMenu } from "react-icons/fi";
+import { FiMenu, FiSun } from "react-icons/fi";
+import { FaCloudMoon } from "react-icons/fa";
 import Logo from "./Logo";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const [darkMode, toggleDarkMode] = useDarkMode();
 
   useEffect(() => {
     function handleScroll() {
@@ -42,25 +46,37 @@ export default function Header() {
       >
         <div className="flex items-center w-full md:w-[1000px] mt-0 mx-auto justify-between">
           <Logo />
-          <nav className="desktopNav hidden md:inline-block">
-            <ul className="flex flex-row gap-8">
-              <li>
-                <a href="#home">Home</a>
-              </li>
-              <li>
-                <a href="#about">About</a>
-              </li>
-              <li>
-                <a href="#skills">Skills</a>
-              </li>
-              <li>
-                <a href="#portfolio">Projects</a>
-              </li>
-              <li>
-                <a href="#contact">Contact</a>
-              </li>
-            </ul>
-          </nav>
+          <div className="hidden md:flex gap-12 items-center">
+            <nav className="desktopNav hidden md:inline-block">
+              <ul className="flex flex-row gap-8">
+                <li>
+                  <a href="#home">Home</a>
+                </li>
+                <li>
+                  <a href="#about">About</a>
+                </li>
+                <li>
+                  <a href="#skills">Skills</a>
+                </li>
+                <li>
+                  <a href="#portfolio">Projects</a>
+                </li>
+                <li>
+                  <a href="#contact">Contact</a>
+                </li>
+              </ul>
+            </nav>
+            <button
+              className="text-green-600  h-fit w-fit"
+              onClick={toggleDarkMode}
+            >
+              {darkMode ? (
+                <FiSun size={30} className="fill-green-600" />
+              ) : (
+                <FaCloudMoon size={30} className="" />
+              )}
+            </button>
+          </div>
           <div
             onClick={() => setIsOpen(!isOpen)}
             className={
@@ -87,11 +103,22 @@ export default function Header() {
             : "fixed w-full z-20 h-screen translate-x-[100%] transition-all ease-in-out duration-300 md:hidden"
         }
       >
-        <div
-          onClick={() => setIsOpen(!isOpen)}
-          className="p-4 px-6 flex justify-end w-1/2"
-        >
-          <IoMdClose size={30} className="text-green-700" />
+        <div className="p-4 px-6 flex justify-between items-center w-1/2">
+          <button
+            className="text-green-700  h-fit w-fit"
+            onClick={toggleDarkMode}
+          >
+            {darkMode ? (
+              <FiSun size={25} className="fill-green-700" />
+            ) : (
+              <FaCloudMoon size={25} className="fill-green-700" />
+            )}
+          </button>
+          <IoMdClose
+            size={30}
+            onClick={() => setIsOpen(!isOpen)}
+            className="text-green-700"
+          />
         </div>
         <ul className="navList">
           <li>
