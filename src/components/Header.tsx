@@ -87,7 +87,7 @@ export default function Header({ toggleDarkMode, darkMode }: HeaderProps) {
             }
           >
             {/* <img src={burgerIcon} alt="burger button" /> */}
-            <FiMenu size={30} className="text-green-700" />
+            <FiMenu size={30} className="text-green-700 dark:text-green-600" />
           </div>
         </div>
       </header>
@@ -104,7 +104,7 @@ export default function Header({ toggleDarkMode, darkMode }: HeaderProps) {
             : "fixed w-full z-20 h-screen translate-x-[100%] transition-all ease-in-out duration-300 md:hidden"
         }
       >
-        <div className="p-4 px-6 flex justify-between items-center w-3/5">
+        <div className="p-4 px-4 flex justify-between items-center w-3/5">
           <button
             className="text-green-700 dark:text-green-600 h-fit w-fit"
             onClick={toggleDarkMode}

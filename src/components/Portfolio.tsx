@@ -79,22 +79,24 @@ export default function Portfolio() {
   return (
     <section
       id="portfolio"
-      className="w-full flex flex-col items-center px-7 mb-12"
+      className="w-full flex flex-col items-center px-7 dark:bg-[#222222] -mb-[1px]"
     >
-      <h2 className="text-3xl text-slate-600 font-semibold mb-6 border-b-2 font-canada border-slate-600">
+      <h2 className="text-3xl text-slate-600 font-semibold mb-6 border-b-2 font-canada border-slate-600 dark:text-slate-200 dark:border-slate-200">
         Projects
       </h2>
       <div>
         {repos.map((repo) => (
           <div
             key={repo.id}
-            className="mb-4 w-full h-full iphone:h-24 flex space-between border border-gray-500 rounded-md"
+            className="mb-4 w-full h-full iphone:h-24 flex space-between border border-gray-500 rounded-md dark:text-slate-200"
           >
             <div className="w-9/12 p-3">
-              <h3 className="font-medium text-lg font-canada mb-1">
+              <h3 className="font-medium text-lg font-canada mb-1 duration-[0s]">
                 {repo.name}
               </h3>
-              <p className="font-canada leading-tight">{repo.description}</p>
+              <p className="font-canada leading-tight duration-[0s]">
+                {repo.description}
+              </p>
             </div>
             <div className="w-3/12">
               <a

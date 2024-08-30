@@ -32,7 +32,7 @@ export default function Home({ darkMode }: HomeProps) {
       <a
         target="_blank"
         href="https://www.linkedin.com/in/mauriciocr22/"
-        className=" bg-green-600 text-white text-semibold px-4 py-3 rounded-sm md:hover:bg-green-700 transition-colors duration-100 md:text-lg shadow-md"
+        className=" bg-green-600 dark:bg-green-700 text-white text-semibold px-4 py-3 rounded-sm md:hover:bg-green-700 md:dark:hover:bg-green-800 transition-colors duration-100 md:text-lg shadow-md"
       >
         Get in Touch
       </a>

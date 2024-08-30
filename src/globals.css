@@ -48,7 +48,7 @@ html,
 }
 
 .navList li {
-  @apply mb-1 hover:bg-green-600 hover:text-white;
+  @apply mb-2 hover:bg-green-600 hover:text-white;
 }
 .navList a {
   @apply font-semibold text-xl px-4 w-full h-full block dark:text-slate-300;
@@ -63,11 +63,11 @@ html,
 }
 
 .aboutContact a * {
-  @apply w-8 h-8 text-slate-700;
+  @apply w-8 h-8 text-slate-700 dark:text-slate-200;
 }
 
 .aboutContact a:hover * {
-  @apply text-green-700 transition-all;
+  @apply text-green-700 dark:text-green-600 transition-all;
 }
 
 .projectsButton {
@@ -80,14 +80,16 @@ html,
   }
 
   .scrollbar::-webkit-scrollbar-track {
-    border-radius: 100vh;
-    background: #f7f4edf6;
+    /* border-radius: 100vh;
+    background: #f7f4edf6; */
+    @apply rounded-full bg-[#f7f4edf6] dark:bg-[#1c1c1c];
   }
 
   .scrollbar::-webkit-scrollbar-thumb {
-    background: #16a34a8e;
+    /* background: #16a34a8e;
     border-radius: 100vh;
-    border: 2px solid #f6f7ed;
+    border: 2px solid #f6f7ed; */
+    @apply bg-[#16a34a8e] rounded-full border-2 border-[#f6f7ed];
   }
 
   .scrollbar::-webkit-scrollbar-thumb:hover {
