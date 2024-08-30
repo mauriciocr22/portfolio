@@ -4,12 +4,15 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import Portfolio from "./components/Portfolio";
 import Skills from "./components/Skills";
+import useDarkMode from "./hooks/useDarkMode";
 
 function App() {
+  const [darkMode, toggleDarkMode] = useDarkMode();
+
   return (
     <div className="w-full h-full">
-      <Header />
-      <Home />
+      <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+      <Home darkMode={darkMode} />
       <About />
       <Skills />
       <Portfolio />

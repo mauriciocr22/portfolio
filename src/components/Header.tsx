@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
-import useDarkMode from "../hooks/useDarkMode";
 import { IoMdClose } from "react-icons/io";
 import { FiMenu, FiSun } from "react-icons/fi";
 import { FaCloudMoon } from "react-icons/fa";
 import Logo from "./Logo";
 
-export default function Header() {
+interface HeaderProps {
+  toggleDarkMode: () => void;
+  darkMode: boolean;
+}
+
+export default function Header({ toggleDarkMode, darkMode }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-
-  const [darkMode, toggleDarkMode] = useDarkMode();
 
   useEffect(() => {
     function handleScroll() {
@@ -40,8 +42,7 @@ export default function Header() {
     <>
       <header
         className={`flex z-20 h-[62px] items-center transition-all duration-150 justify-between fixed p-4 px-6  md:px-8 flex-wrap mx-auto w-full ${
-          isScrolled &&
-          "border-b border-slate-200 shadow backdrop-blur-sm bg-white/65"
+          isScrolled && "shadow backdrop-blur-sm bg-white/65 dark:bg-black/65"
         }`}
       >
         <div className="flex items-center w-full md:w-[1000px] mt-0 mx-auto justify-between">
@@ -99,25 +100,28 @@ export default function Header() {
       <div
         className={
           isOpen
-            ? "fixed w-full h-[calc(100%)] bg-white translate-x-[50%] z-40 transition-all ease-in-out duration-300 md:hidden"
+            ? "fixed w-full h-[calc(100%)] bg-white dark:bg-[#1b1b1b] translate-x-[40%] z-40 transition-all ease-in-out duration-300 md:hidden"
             : "fixed w-full z-20 h-screen translate-x-[100%] transition-all ease-in-out duration-300 md:hidden"
         }
       >
-        <div className="p-4 px-6 flex justify-between items-center w-1/2">
+        <div className="p-4 px-6 flex justify-between items-center w-3/5">
           <button
-            className="text-green-700  h-fit w-fit"
+            className="text-green-700 dark:text-green-600 h-fit w-fit"
             onClick={toggleDarkMode}
           >
             {darkMode ? (
-              <FiSun size={25} className="fill-green-700" />
+              <FiSun size={25} className="fill-green-700 dark:fill-green-600" />
             ) : (
-              <FaCloudMoon size={25} className="fill-green-700" />
+              <FaCloudMoon
+                size={25}
+                className="fill-green-700 dark:fill-green-600"
+              />
             )}
           </button>
           <IoMdClose
             size={30}
             onClick={() => setIsOpen(!isOpen)}
-            className="text-green-700"
+            className="text-green-700 dark:text-green-600"
           />
         </div>
         <ul className="navList">
