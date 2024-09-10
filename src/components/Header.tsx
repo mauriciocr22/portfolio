@@ -3,6 +3,7 @@ import { IoMdClose } from "react-icons/io";
 import { FiMenu, FiSun } from "react-icons/fi";
 import { FaCloudMoon } from "react-icons/fa";
 import Logo from "./Logo";
+import { useTranslation } from "react-i18next";
 
 interface HeaderProps {
   toggleDarkMode: () => void;
@@ -12,6 +13,7 @@ interface HeaderProps {
 export default function Header({ toggleDarkMode, darkMode }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     function handleScroll() {
@@ -51,19 +53,19 @@ export default function Header({ toggleDarkMode, darkMode }: HeaderProps) {
             <nav className="desktopNav hidden md:inline-block">
               <ul className="flex flex-row gap-8">
                 <li>
-                  <a href="#home">Home</a>
+                  <a href="#home">{t("navHome")}</a>
                 </li>
                 <li>
-                  <a href="#about">About</a>
+                  <a href="#about">{t("navAbout")}</a>
                 </li>
                 <li>
-                  <a href="#skills">Skills</a>
+                  <a href="#skills">{t("navSkills")}</a>
                 </li>
                 <li>
-                  <a href="#portfolio">Projects</a>
+                  <a href="#portfolio">{t("navProjects")}</a>
                 </li>
                 <li>
-                  <a href="#contact">Contact</a>
+                  <a href="#contact">{t("navContact")}</a>
                 </li>
               </ul>
             </nav>
@@ -127,27 +129,27 @@ export default function Header({ toggleDarkMode, darkMode }: HeaderProps) {
         <ul className="navList">
           <li>
             <a href="#home" onClick={() => setIsOpen(false)}>
-              Home
+              {t("navHome")}
             </a>
           </li>
           <li>
             <a href="#about" onClick={() => setIsOpen(false)}>
-              About
+              {t("navAbout")}
             </a>
           </li>
           <li>
             <a href="#skills" onClick={() => setIsOpen(false)}>
-              Skills
+              {t("navSkills")}
             </a>
           </li>
           <li>
             <a href="#portfolio" onClick={() => setIsOpen(false)}>
-              Projects
+              {t("navProjects")}
             </a>
           </li>
           <li>
             <a href="#contact" onClick={() => setIsOpen(false)}>
-              Contact
+              {t("navContact")}
             </a>
           </li>
         </ul>

@@ -2,8 +2,11 @@ import selfieImg from "../assets/foto.jpg";
 import { FaLinkedin, FaInstagram } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
 import curriculumPDF from "../assets/curriculum.pdf";
+import { useTranslation } from "react-i18next";
 
 export default function About() {
+  const { t } = useTranslation();
+
   return (
     <section
       id="about"
@@ -32,25 +35,15 @@ export default function About() {
           </div>
         </div>
         <div>
-          <div className="overflow-y-scroll md:overflow-visible h-72 pr-2 mb-4 scrollbar">
-            <p className="md:text-lg dark:text-slate-200">
-              I'm a Brazilian developer with a deep passion for coding, and most
-              of what I know comes from rolling up my sleeves and diving into
-              projects. I'm currently enrolled in an Internet Systems course at
-              FATEC Rubens Lara, but I've spent a lot of time teaching myself
-              the ins and outs of web development, especially with React,
-              TailwindCSS, and Node.js. I love creating sleek, functional web
-              apps and am always eager to learn more and tackle new challenges
-              in the tech world. If you’d like to learn more about me, feel free
-              to reach out or download my resume!
-            </p>
+          <div className="overflow-y-scroll md:overflow-visible h-72 md:h-auto pr-2 mb-4 scrollbar">
+            <p className="md:text-lg dark:text-slate-200">{t("aboutText")}</p>
           </div>
           <a
             href={curriculumPDF}
             download="mauricio_curriculum.pdf"
             className="w-full bg-green-600 text-white rounded-sm h-14 flex items-center justify-center md:hover:bg-green-700 transition-colors duration-75"
           >
-            Download Resume
+            {t("aboutCta")}
           </a>
         </div>
       </div>

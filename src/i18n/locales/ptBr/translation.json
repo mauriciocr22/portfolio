@@ -1,0 +1,14 @@
+{
+  "headerTitle": "Olá! Eu sou o",
+  "headerDescription": "Um desenvolvedor fullstack com paixão por desenvolvimento web.",
+  "headerCta": "Entrar em Contato",
+  "navHome": "Início",
+  "navAbout": "Sobre",
+  "navSkills": "Habilidades",
+  "navProjects": "Projetos",
+  "navContact": "Contato",
+  "aboutText": "Sou um desenvolvedor brasileiro com uma grande paixão por programação, e a maior parte do que sei vem de arregaçar as mangas e mergulhar em projetos. Atualmente, estou cursando Sistemas para Internet na FATEC Rubens Lara, mas passei muito tempo aprendendo por conta própria os detalhes do desenvolvimento web, especialmente com React, TailwindCSS e Node.js. Adoro criar aplicações web elegantes e funcionais e estou sempre disposto a aprender mais e enfrentar novos desafios no mundo da tecnologia. Se quiser saber mais sobre mim, fique à vontade para entrar em contato ou baixar meu currículo!",
+  "aboutCta": "Baixar Currículo",
+  "projectsCta": "Acessar",
+  "contactText": "Sinta-se livre para entrar em contato!"
+}

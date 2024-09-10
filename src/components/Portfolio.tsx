@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 interface Repository {
   id: string;
@@ -28,6 +29,7 @@ interface GithubResponse {
 
 export default function Portfolio() {
   const [repos, setRepos] = useState<Repository[]>([]);
+  const { t } = useTranslation();
   const fetchRepos = useCallback(async () => {
     const query = `
       {
@@ -82,7 +84,7 @@ export default function Portfolio() {
       className="w-full flex flex-col items-center px-7 dark:bg-[#222222] -mb-[1px]"
     >
       <h2 className="text-3xl text-slate-600 font-semibold mb-6 border-b-2 font-canada border-slate-600 dark:text-slate-200 dark:border-slate-200">
-        Projects
+        {t("navProjects")}
       </h2>
       <div>
         {repos.map((repo) => (
@@ -101,11 +103,11 @@ export default function Portfolio() {
             <div className="w-3/12">
               <a
                 href={repo.url}
-                className="h-full w-full projectsButton text-white font-medium text-lg bg-[#169444] flex items-center justify-center py-2 px-4 md:hover:bg-green-700 transition-colors duration-100"
+                className="h-full w-full projectsButton text-white font-medium text-lg bg-[#169444] flex items-center justify-center md:hover:bg-green-700 transition-colors duration-100"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                View
+                {t("projectsCta")}
               </a>
             </div>
           </div>
