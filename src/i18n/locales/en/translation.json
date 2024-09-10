@@ -10,5 +10,7 @@
   "aboutText": "I'm a Brazilian developer with a deep passion for coding, and most of what I know comes from rolling up my sleeves and diving into projects. I'm currently enrolled in an Internet Systems course at FATEC Rubens Lara, but I've spent a lot of time teaching myself the ins and outs of web development, especially with React, TailwindCSS, and Node.js. I love creating sleek, functional web apps and am always eager to learn more and tackle new challenges in the tech world. If you’d like to learn more about me, feel free to reach out or download my resume!",
   "aboutCta": "Download Resume",
   "projectsCta": "View",
-  "contactText": "Feel free to contact me!"
+  "contactText": "Feel free to contact me!",
+  "portuguese": "Portuguese",
+  "english": "English"
 }

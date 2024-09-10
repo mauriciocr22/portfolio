@@ -1,5 +1,5 @@
 import en from "./en/translation.json";
-import ptBr from "./ptBr/translation.json";
+import ptBr from "./pt-br/translation.json";
 
 export default {
   en: {

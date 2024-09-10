@@ -41,7 +41,7 @@ export default function About() {
           <a
             href={curriculumPDF}
             download="mauricio_curriculum.pdf"
-            className="w-full bg-green-600 text-white rounded-sm h-14 flex items-center justify-center md:hover:bg-green-700 transition-colors duration-75"
+            className="w-full bg-green-600 text-white rounded-sm h-14 flex items-center justify-center md:hover:bg-green-700 transition-colors duration-75 text-xl"
           >
             {t("aboutCta")}
           </a>

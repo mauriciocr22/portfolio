@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { FiMenu, FiSun } from "react-icons/fi";
-import { FaCloudMoon } from "react-icons/fa";
+import { FaCloudMoon, FaChevronDown } from "react-icons/fa";
 import Logo from "./Logo";
+import brFlag from "../assets/brasil-flag.svg";
+import engFlag from "../assets/eng-flag.svg";
 import { useTranslation } from "react-i18next";
+import { Popover, PopoverContent, PopoverTrigger } from "./Popover";
 
 interface HeaderProps {
   toggleDarkMode: () => void;
@@ -13,7 +16,19 @@ interface HeaderProps {
 export default function Header({ toggleDarkMode, darkMode }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { t } = useTranslation();
+
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+
+  const { i18n, t } = useTranslation();
+
+  const languages = [
+    { name: t("english"), code: "en", flag: engFlag },
+    { name: t("portuguese"), code: "ptBr", flag: brFlag },
+  ];
+
+  const currentLangFlag = languages.find(
+    (lang) => lang.code === i18n.language
+  )!;
 
   useEffect(() => {
     function handleScroll() {
@@ -44,12 +59,12 @@ export default function Header({ toggleDarkMode, darkMode }: HeaderProps) {
     <>
       <header
         className={`flex z-20 h-[62px] items-center transition-all duration-150 justify-between fixed p-4 px-6  md:px-8 flex-wrap mx-auto w-full ${
-          isScrolled && "shadow backdrop-blur-sm bg-white/65 dark:bg-black/65"
+          isScrolled && "shadow backdrop-blur-sm bg-white/75 dark:bg-black/65"
         }`}
       >
         <div className="flex items-center w-full md:w-[1000px] mt-0 mx-auto justify-between">
           <Logo />
-          <div className="hidden md:flex gap-12 items-center">
+          <div className="hidden md:flex gap-10 items-center">
             <nav className="desktopNav hidden md:inline-block">
               <ul className="flex flex-row gap-8">
                 <li>
@@ -69,16 +84,38 @@ export default function Header({ toggleDarkMode, darkMode }: HeaderProps) {
                 </li>
               </ul>
             </nav>
-            <button
-              className="text-green-600  h-fit w-fit"
-              onClick={toggleDarkMode}
-            >
-              {darkMode ? (
-                <FiSun size={30} className="fill-green-600" />
-              ) : (
-                <FaCloudMoon size={30} className="" />
-              )}
-            </button>
+            <div className="flex items-center justify-center gap-6">
+              <button
+                className="text-green-600  h-fit w-fit"
+                onClick={toggleDarkMode}
+              >
+                {darkMode ? (
+                  <FiSun size={30} className="fill-green-600" />
+                ) : (
+                  <FaCloudMoon size={30} className="" />
+                )}
+              </button>
+              <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
+                <PopoverTrigger className="flex gap-2 items-center justify-center px-2 py-1 hover:bg-gray-500/20 rounded-md">
+                  <img src={currentLangFlag.flag} alt="" />
+                  <FaChevronDown className="text-gray-600 dark:text-gray-500" />
+                </PopoverTrigger>
+                <PopoverContent className="flex flex-col w-auto gap-1 p-1 bg-white dark:bg-neutral-800 dark:border-none">
+                  {languages.map((language) => (
+                    <button
+                      onClick={() => {
+                        i18n.changeLanguage(language.code);
+                        setIsPopoverOpen(false);
+                      }}
+                      className="flex gap-3 items-center text-start py-1 px-2 hover:bg-gray-500/20 rounded-md dark:text-slate-300"
+                    >
+                      <img src={language.flag} alt="" />
+                      {language.name}
+                    </button>
+                  ))}
+                </PopoverContent>
+              </Popover>
+            </div>
           </div>
           <div
             onClick={() => setIsOpen(!isOpen)}
