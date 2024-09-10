@@ -18,6 +18,7 @@ export default function Header({ toggleDarkMode, darkMode }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const [isMobilePopoverOpen, setIsMobilePopoverOpen] = useState(false);
 
   const { i18n, t } = useTranslation();
 
@@ -190,6 +191,31 @@ export default function Header({ toggleDarkMode, darkMode }: HeaderProps) {
             </a>
           </li>
         </ul>
+        <div className="absolute bottom-2 left-2">
+          <Popover
+            open={isMobilePopoverOpen}
+            onOpenChange={setIsMobilePopoverOpen}
+          >
+            <PopoverTrigger className="flex gap-2 items-center justify-center px-2 py-1 hover:bg-gray-500/20 rounded-md">
+              <img src={currentLangFlag.flag} alt="" />
+              <FaChevronDown className="text-gray-600 dark:text-gray-500 rotate-180" />
+            </PopoverTrigger>
+            <PopoverContent className="flex flex-col w-auto gap-1 p-1 bg-white dark:bg-neutral-800 dark:border-none">
+              {languages.map((language) => (
+                <button
+                  onClick={() => {
+                    i18n.changeLanguage(language.code);
+                    setIsPopoverOpen(false);
+                  }}
+                  className="flex gap-3 items-center text-start py-1 px-2 hover:bg-gray-500/20 rounded-md dark:text-slate-300"
+                >
+                  <img src={language.flag} alt="" />
+                  {language.name}
+                </button>
+              ))}
+            </PopoverContent>
+          </Popover>
+        </div>
       </div>
     </>
   );
