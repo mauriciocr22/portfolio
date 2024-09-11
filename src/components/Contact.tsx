@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { FaLinkedin } from "react-icons/fa";
+import { FaLinkedin, FaGithub } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
 
 export default function Contact() {
@@ -14,6 +14,9 @@ export default function Contact() {
         {t("contactText")}
       </h2>
       <div className="flex gap-2 mb-10 contact">
+        <a target="_blank" href="https://github.com/mauriciocr22">
+          <FaGithub />
+        </a>
         <a target="_blank" href="https://www.linkedin.com/in/mauriciocr22/">
           <FaLinkedin />
         </a>

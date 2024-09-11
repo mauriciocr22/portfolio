@@ -1,5 +1,5 @@
 import selfieImg from "../assets/foto.jpg";
-import { FaLinkedin, FaInstagram } from "react-icons/fa";
+import { FaLinkedin, FaInstagram, FaGithub } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
 import curriculumPDF from "../assets/curriculum.pdf";
 import { useTranslation } from "react-i18next";
@@ -23,6 +23,9 @@ export default function About() {
             Maurício Rodrigues
           </span>
           <div className="aboutContact">
+            <a target="_blank" href="https://github.com/mauriciocr22">
+              <FaGithub />
+            </a>
             <a target="_blank" href="https://www.linkedin.com/in/mauriciocr22/">
               <FaLinkedin />
             </a>
@@ -35,7 +38,7 @@ export default function About() {
           </div>
         </div>
         <div>
-          <div className="overflow-y-scroll md:overflow-visible h-72 md:h-auto pr-2 mb-4 scrollbar">
+          <div className="overflow-y-scroll md:overflow-visible h-72 md:h-80 pr-2 mb-4 scrollbar">
             <p className="md:text-lg dark:text-slate-200">{t("aboutText")}</p>
           </div>
           <a
