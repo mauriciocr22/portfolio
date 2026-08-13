@@ -10,7 +10,23 @@
   "aboutText": "Sou um desenvolvedor brasileiro com uma grande paixão por programação, e a maior parte do que sei vem de arregaçar as mangas e mergulhar em projetos. Atualmente, estou cursando Sistemas para Internet na FATEC Rubens Lara, mas passei muito tempo aprendendo por conta própria os detalhes do desenvolvimento web, especialmente com React, TailwindCSS e Node.js. Adoro criar aplicações web elegantes e funcionais e estou sempre disposto a aprender mais e enfrentar novos desafios no mundo da tecnologia. Se quiser saber mais sobre mim, fique à vontade para entrar em contato ou baixar meu currículo!",
   "aboutCta": "Baixar Currículo",
   "projectsCta": "Acessar",
+  "projectsGithubCta": "GitHub",
   "contactText": "Entre em contato!",
   "portuguese": "Português",
-  "english": "Inglês"
+  "english": "Inglês",
+  "projects": {
+    "_draftNotice": "DRAFT — descriptions below are a first-pass PT-BR translation, not yet reviewed. Confirm wording before shipping.",
+    "habit-tracker": {
+      "description": "Um aplicativo full-stack de acompanhamento de hábitos, construído com Next.js e React 19. Acompanhe hábitos diários, visualize seu progresso ao longo do tempo e mantenha sequências para criar rotinas consistentes."
+    },
+    "architetando": {
+      "description": "Landing page criada para o escritório de arquitetura Achitetando."
+    },
+    "product-radar": {
+      "description": "Uma interface web moderna para análise inteligente de produtos de e-commerce. Analise automaticamente avaliações e notas de produtos da Amazon e do Mercado Livre usando inteligência artificial."
+    },
+    "esc-site": {
+      "description": "Landing page criada para a banda de rock ESC."
+    }
+  }
 }

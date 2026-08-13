@@ -1,82 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
-import axios from "axios";
 import { useTranslation } from "react-i18next";
-
-interface Repository {
-  id: string;
-  name: string;
-  description: string;
-  url: string;
-}
-
-interface PinnedItemEdge {
-  node: Repository;
-}
-
-interface PinnedItems {
-  edges: PinnedItemEdge[];
-}
-
-interface User {
-  pinnedItems: PinnedItems;
-}
-
-interface GithubResponse {
-  data: {
-    user: User;
-  };
-}
+import { projects } from "../data/projects";
 
 export default function Portfolio() {
-  const [repos, setRepos] = useState<Repository[]>([]);
   const { t } = useTranslation();
-  const fetchRepos = useCallback(async () => {
-    const query = `
-      {
-        user(login: "mauriciocr22") {
-            pinnedItems(first: 4) {
-              edges {
-                node {
-                  ... on Repository {
-                    id
-                    name
-                    description
-                    url
-                  }
-                }
-              }
-            }
-          }
-      }
-    `;
-
-    try {
-      const accessToken = import.meta.env.VITE_PERSONAL_ACCESS_TOKEN;
-      const response = await axios.post<GithubResponse>(
-        "https://api.github.com/graphql",
-        {
-          query,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-
-      const pinnedItems = response.data.data.user.pinnedItems.edges.map(
-        (edge) => edge.node
-      );
-      setRepos(pinnedItems);
-    } catch (err) {
-      console.error("Error fetching repos:", err);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchRepos();
-  }, [fetchRepos]);
 
   return (
     <section
@@ -87,28 +13,49 @@ export default function Portfolio() {
         {t("navProjects")}
       </h2>
       <div>
-        {repos.map((repo) => (
+        {projects.map((project) => (
           <div
-            key={repo.id}
+            key={project.slug}
             className="mb-4 w-full h-full iphone:h-24 flex space-between border border-gray-500 rounded-md dark:text-slate-200"
           >
             <div className="w-9/12 p-3">
               <h3 className="font-medium text-lg font-canada mb-1 duration-[0s]">
-                {repo.name}
+                {project.title}
               </h3>
               <p className="font-canada leading-tight duration-[0s]">
-                {repo.description}
+                {t(`projects.${project.slug}.description`)}
               </p>
             </div>
-            <div className="w-3/12">
-              <a
-                href={repo.url}
-                className="h-full w-full projectsButton text-white font-medium text-lg bg-[#169444] flex items-center justify-center md:hover:bg-green-700 transition-colors duration-100"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {t("projectsCta")}
-              </a>
+            <div className="w-3/12 flex flex-col">
+              {project.liveUrl ? (
+                <>
+                  <a
+                    href={project.liveUrl}
+                    className="h-1/2 w-full rounded-tr-[4px] text-white font-medium text-lg bg-[#169444] flex items-center justify-center md:hover:bg-green-700 transition-colors duration-100"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {t("projectsCta")}
+                  </a>
+                  <a
+                    href={project.githubUrl}
+                    className="h-1/2 w-full rounded-br-[4px] border-t border-white/20 text-white font-medium text-lg bg-[#169444] flex items-center justify-center md:hover:bg-green-700 transition-colors duration-100"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {t("projectsGithubCta")}
+                  </a>
+                </>
+              ) : (
+                <a
+                  href={project.githubUrl}
+                  className="h-full w-full projectsButton text-white font-medium text-lg bg-[#169444] flex items-center justify-center md:hover:bg-green-700 transition-colors duration-100"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {t("projectsCta")}
+                </a>
+              )}
             </div>
           </div>
         ))}
