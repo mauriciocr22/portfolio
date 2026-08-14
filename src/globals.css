@@ -24,6 +24,7 @@
   --glass-bg: rgba(0, 0, 0, 0.04);
   --glass-border: rgba(0, 0, 0, 0.12);
   --glass-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
+  --shadow-hover: 0 12px 36px rgba(0, 0, 0, 0.2);
 
   --canvas-margin-mobile: 16px;
   --canvas-margin-desktop: 24px;
@@ -45,6 +46,7 @@
   --glass-bg: rgba(255, 255, 255, 0.04);
   --glass-border: rgba(255, 255, 255, 0.15);
   --glass-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+  --shadow-hover: 0 12px 36px rgba(0, 0, 0, 0.45);
 }
 
 body {
@@ -113,10 +115,6 @@ html,
 
 .aboutContact a:hover * {
   @apply text-green-700 dark:text-green-600 transition-all;
-}
-
-.projectsButton {
-  border-radius: 0 4px 4px 0;
 }
 
 @layer components {

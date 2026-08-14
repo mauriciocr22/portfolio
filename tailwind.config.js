@@ -47,6 +47,7 @@ module.exports = {
       },
       boxShadow: {
         glass: "var(--glass-shadow)",
+        hover: "var(--shadow-hover)",
       },
       spacing: {
         "canvas-margin-mobile": "var(--canvas-margin-mobile)",
