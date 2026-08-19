@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { FaGithub } from "react-icons/fa";
 import { FiExternalLink } from "react-icons/fi";
 import { projects } from "../data/projects";
+import ProjectsCarousel from "./ProjectsCarousel";
 
 // Redesign_Brief.md §7 — project cards are solid content, not glass: opaque
 // surface, no backdrop-filter. They still take the shared --glass-radius
@@ -28,7 +29,11 @@ export default function Portfolio() {
         {t("navProjects")}
       </h2>
 
-      <div className="grid w-full max-w-[1000px] grid-cols-1 gap-panel-gap md:grid-cols-2">
+      {/* Below 768px: horizontal scroll-snap coverflow row (ProjectsCarousel).
+          At 768px and up: the grid below, unchanged. */}
+      <ProjectsCarousel projects={projects} />
+
+      <div className="hidden w-full max-w-[1000px] gap-panel-gap md:grid md:grid-cols-2">
         {projects.map((project) => (
           <article key={project.slug} className={CARD}>
             <div className="aspect-video w-full overflow-hidden">
