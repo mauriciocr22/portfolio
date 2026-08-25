@@ -3,7 +3,7 @@ import Contact from "./components/Contact";
 import Home from "./components/Home";
 import Nav from "./components/Nav";
 import Portfolio from "./components/Portfolio";
-import Skills from "./components/Skills";
+import TechMarquee from "./components/TechMarquee";
 import useDarkMode from "./hooks/useDarkMode";
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
       <Nav darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <Home darkMode={darkMode} />
       <About />
-      <Skills />
+      <TechMarquee />
       <Portfolio />
       <Contact />
     </div>

@@ -38,16 +38,24 @@ module.exports = {
         "button-text": "var(--color-button-text)",
         "glass-bg": "var(--glass-bg)",
         "glass-border": "var(--glass-border)",
+        "marquee-badge-bg": "var(--marquee-badge-bg)",
+        "marquee-badge-border": "var(--marquee-badge-border)",
       },
       backdropBlur: {
         glass: "var(--glass-blur)",
       },
       borderRadius: {
         glass: "var(--glass-radius)",
+        // Named "badge", not "sm" — Tailwind's own `sm` scale key already
+        // means something else (2px) and is still in use by not-yet-
+        // redesigned sections (Home, About); overriding it would silently
+        // reskin those too.
+        badge: "var(--radius-sm)",
       },
       boxShadow: {
         glass: "var(--glass-shadow)",
         hover: "var(--shadow-hover)",
+        "marquee-badge": "var(--marquee-badge-shadow)",
       },
       spacing: {
         "canvas-margin-mobile": "var(--canvas-margin-mobile)",

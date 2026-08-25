@@ -110,6 +110,26 @@ Type scale (adjust once real content is in place):
 
 *Optional, later phase:* a component that needs to read as more elevated than the baseline (a modal above a nav bar, say) can scale blur and shadow together — e.g. `--glass-blur-modal: 16px` with a stronger shadow. Don't add this tier until the baseline is validated on real components.
 
+*Per-component overrides:* `--glass-bg`/`--glass-border`/`--glass-shadow` are tuned for the nav's barely-there panel-scale tint — a component that needs to read as more opaque glass, or that sits at compact-control scale rather than panel scale, gets its own tokens instead of raising the shared ones, which would change the nav too. Blur stays the shared `--glass-blur` (10px) — real material to blur, just tuned background/border/shadow:
+
+```css
+:root {
+  --marquee-badge-bg: rgba(0, 0, 0, 0.6);
+  --marquee-badge-border: rgba(0, 0, 0, 0.17);
+  --marquee-badge-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+}
+
+[data-theme="dark"] {
+  --marquee-badge-bg: rgba(255, 255, 255, 0.6);
+  --marquee-badge-border: rgba(255, 255, 255, 0.17);
+  --marquee-badge-shadow: 0 4px 16px rgba(0, 0, 0, 0.48);
+}
+```
+
+Background: ~0.6 opacity — enough to read as genuinely translucent material rather than a flat solid chip (0.9 read as solid; 0.3 read as washed-out gray), still real enough to justify the blur. Border: same low-opacity role as `--glass-border`, just a touch stronger (0.17 vs 0.12/0.15) since a compact badge has less edge to read against. Shadow: shorter offset and blur radius than `--glass-shadow` (4px/14-16px vs 8px/28px) — proportionate to a small control rather than a panel — at higher opacity, because at this scale and mostly sitting over plain canvas, the shadow (not the blur) is what actually reads as "floating."
+
+Used by the tech-badge marquee between About and Portfolio.
+
 ### Hover elevation
 
 Section 6 specifies a hover state for lifted panels — `translateY(-2px)` plus "a marginally stronger shadow" — without a number for that shadow. One token covers it, shared by any panel that lifts on hover, glass or solid:
@@ -139,6 +159,16 @@ Panels never sit flush against the viewport edge or against each other — the v
 ### Corner treatment
 
 `--glass-radius: 16px` via standard `border-radius` is the safe default everywhere. Where feasible, prefer an SVG `clip-path` squircle (continuous superellipse curve) over plain `border-radius` at this value — it reads closer to Apple's actual curve. Treat this as a nice-to-have with a `border-radius` fallback, not a blocker, since `corner-shape` browser support is still inconsistent. Rounded corners apply everywhere in this redesign, not just hero-level containers — badges, tags, and small controls should also carry a radius appropriate to their size rather than defaulting to square.
+
+`--glass-radius` is sized for large panels — applied to a compact control it reads as an almost-pill shape rather than a rounded rectangle. Small controls (badges, tags, chips) use their own proportional token instead:
+
+```css
+:root {
+  --radius-sm: 8px;
+}
+```
+
+No dark-mode override — corner radius doesn't change with theme, only color does.
 
 ### Elevation without color
 
