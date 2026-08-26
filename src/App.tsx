@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import Nav from "./components/Nav";
 import Portfolio from "./components/Portfolio";
 import TechMarquee from "./components/TechMarquee";
+import TechStack from "./components/TechStack";
 import useDarkMode from "./hooks/useDarkMode";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
     <div className="w-full h-full">
       <Nav darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <Home darkMode={darkMode} />
+      <TechStack />
       <About />
       <TechMarquee />
       <Portfolio />
