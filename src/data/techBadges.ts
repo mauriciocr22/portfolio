@@ -9,6 +9,11 @@ import {
   SiTypescript,
   SiMongodb,
   SiGit,
+  SiNextdotjs,
+  SiPrisma,
+  SiPostgresql,
+  SiCsharp,
+  SiAnthropic,
 } from "react-icons/si";
 
 export interface TechBadge {
@@ -26,4 +31,11 @@ export const TECH_BADGES: TechBadge[] = [
   { name: "TypeScript", icon: SiTypescript },
   { name: "MongoDB", icon: SiMongodb },
   { name: "Git", icon: SiGit },
+  { name: "Next.js", icon: SiNextdotjs },
+  { name: "Prisma", icon: SiPrisma },
+  { name: "PostgreSQL", icon: SiPostgresql },
+  { name: "C#", icon: SiCsharp },
+  // No distinct "Claude" mark in Simple Icons — Anthropic's is the closest
+  // available brand icon for it.
+  { name: "Claude", icon: SiAnthropic },
 ];
