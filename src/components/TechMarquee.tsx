@@ -2,32 +2,22 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { TECH_BADGES, TechBadge } from "../data/techBadges";
 
-// Redesign_Brief.md §5 "Per-component overrides" — genuine glass, not the
-// solid content-layer treatment project cards use: real backdrop-filter
-// blur (the shared --glass-blur, 10px) at --marquee-badge-bg's
-// higher-than-nav opacity, with their own --marquee-badge-border/-shadow
-// tuned for compact-control scale rather than reused panel-scale values.
+// Redesign_Brief.md §7 — badges now match the Tech Stack/Portfolio cards'
+// solid content-layer treatment (bg-surface-solid, border-subtle,
+// text-text-primary) instead of the earlier translucent per-component
+// override, at the user's request once that card look shipped and read
+// better here too. Blur and the reduced-transparency/no-backdrop-filter
+// fallback variants are dropped along with it — against a fully opaque
+// background there's nothing left for a blur to show through, so keeping
+// either would be a no-op.
 // §5 "Corner treatment" — rounded-badge (--radius-sm), not rounded-glass:
 // that token is sized for large panels, and at badge scale it reads as an
 // almost-pill shape rather than a rounded rectangle.
-//
-// text-button-text/the icon's inherited currentColor are both plain
-// opaque colors — nothing here applies a Tailwind opacity utility or a
-// translucent color to either, so they stay fully solid regardless of how
-// translucent the background is (confirmed via computed style, not just
-// inspection: both resolve to opacity 1).
-//
-// Fallback tiers (§8 reduced-transparency, §9 tier 3 no-backdrop-filter)
-// fall back to --color-button-bg rather than the brief's usual
-// --color-surface-solid: text-button-text is legible against button-bg by
-// definition sitewide, but against surface-solid (near-white in light
-// mode, near-black in dark) it would be white-on-white or black-on-black.
-// Border and shadow stay, unprefixed, in every tier.
+// --marquee-badge-shadow stays: a shorter offset/blur proportionate to a
+// compact control, distinct from the panel-scale --glass-shadow cards use.
 const BADGE =
-  "flex shrink-0 items-center gap-2 whitespace-nowrap rounded-badge border border-marquee-badge-border " +
-  "bg-marquee-badge-bg px-4 py-2 text-button-text shadow-marquee-badge backdrop-blur-glass " +
-  "no-backdrop-filter:bg-button-bg no-backdrop-filter:backdrop-blur-none " +
-  "reduced-transparency:bg-button-bg reduced-transparency:backdrop-blur-none";
+  "flex shrink-0 items-center gap-2 whitespace-nowrap rounded-badge border border-subtle " +
+  "bg-surface-solid px-4 py-2 text-text-primary shadow-marquee-badge";
 
 function Badge({ name, icon: Icon }: TechBadge) {
   return (

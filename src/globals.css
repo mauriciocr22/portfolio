@@ -27,13 +27,10 @@
   --shadow-hover: 0 12px 36px rgba(0, 0, 0, 0.2);
 
   /* Redesign_Brief.md §5 "Per-component overrides" — TechMarquee's badges
-     only. Separate from --glass-bg/-border/-shadow on purpose: those are
-     tuned for the nav's barely-there panel-scale tint, and badges need to
-     read as visibly translucent material at compact-control scale, not
-     disappear against the nav's numbers or borrow its panel-sized shadow.
-     Blur still comes from the shared --glass-blur (10px) above. */
-  --marquee-badge-bg: rgba(0, 0, 0, 0.6);
-  --marquee-badge-border: rgba(0, 0, 0, 0.17);
+     only. Background/border now reuse --color-surface-solid/--color-border
+     (badges match the cards' solid look), so --marquee-badge-shadow is the
+     only override left here: shorter offset/blur than --glass-shadow,
+     proportionate to a compact control rather than a panel. */
   --marquee-badge-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
 
   /* Redesign_Brief.md §5 "Corner treatment" — small controls (badges, tags,
@@ -62,8 +59,6 @@
   --glass-border: rgba(255, 255, 255, 0.15);
   --glass-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
   --shadow-hover: 0 12px 36px rgba(0, 0, 0, 0.45);
-  --marquee-badge-bg: rgba(255, 255, 255, 0.6);
-  --marquee-badge-border: rgba(255, 255, 255, 0.17);
   --marquee-badge-shadow: 0 4px 16px rgba(0, 0, 0, 0.48);
 }
 

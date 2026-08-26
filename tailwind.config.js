@@ -38,8 +38,6 @@ module.exports = {
         "button-text": "var(--color-button-text)",
         "glass-bg": "var(--glass-bg)",
         "glass-border": "var(--glass-border)",
-        "marquee-badge-bg": "var(--marquee-badge-bg)",
-        "marquee-badge-border": "var(--marquee-badge-border)",
       },
       backdropBlur: {
         glass: "var(--glass-blur)",

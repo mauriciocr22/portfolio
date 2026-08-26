@@ -110,23 +110,19 @@ Type scale (adjust once real content is in place):
 
 *Optional, later phase:* a component that needs to read as more elevated than the baseline (a modal above a nav bar, say) can scale blur and shadow together — e.g. `--glass-blur-modal: 16px` with a stronger shadow. Don't add this tier until the baseline is validated on real components.
 
-*Per-component overrides:* `--glass-bg`/`--glass-border`/`--glass-shadow` are tuned for the nav's barely-there panel-scale tint — a component that needs to read as more opaque glass, or that sits at compact-control scale rather than panel scale, gets its own tokens instead of raising the shared ones, which would change the nav too. Blur stays the shared `--glass-blur` (10px) — real material to blur, just tuned background/border/shadow:
+*Per-component overrides:* `--glass-bg`/`--glass-border`/`--glass-shadow` are tuned for the nav's barely-there panel-scale tint — a component that needs to read as more opaque glass, or that sits at compact-control scale rather than panel scale, gets its own tokens instead of raising the shared ones, which would change the nav too. A compact control doesn't have to take the glass treatment at all, though: the tech-badge marquee's badges were originally a translucent, blurred variant along these lines, but were later changed to reuse the plain solid `--color-surface-solid`/`--color-border` pair the cards use (section 7), once that card look shipped and read better for the badges too — no blur, no separate bg/border tokens. Only the shadow kept its own tuning, since that's about scale, not material:
 
 ```css
 :root {
-  --marquee-badge-bg: rgba(0, 0, 0, 0.6);
-  --marquee-badge-border: rgba(0, 0, 0, 0.17);
   --marquee-badge-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
 }
 
 [data-theme="dark"] {
-  --marquee-badge-bg: rgba(255, 255, 255, 0.6);
-  --marquee-badge-border: rgba(255, 255, 255, 0.17);
   --marquee-badge-shadow: 0 4px 16px rgba(0, 0, 0, 0.48);
 }
 ```
 
-Background: ~0.6 opacity — enough to read as genuinely translucent material rather than a flat solid chip (0.9 read as solid; 0.3 read as washed-out gray), still real enough to justify the blur. Border: same low-opacity role as `--glass-border`, just a touch stronger (0.17 vs 0.12/0.15) since a compact badge has less edge to read against. Shadow: shorter offset and blur radius than `--glass-shadow` (4px/14-16px vs 8px/28px) — proportionate to a small control rather than a panel — at higher opacity, because at this scale and mostly sitting over plain canvas, the shadow (not the blur) is what actually reads as "floating."
+Shorter offset and blur radius than `--glass-shadow` (4px/14–16px vs 8px/28px) — proportionate to a small control rather than a panel — at higher opacity, because at this scale and mostly sitting over plain canvas, the shadow is what actually reads as "floating."
 
 Used by the tech-badge marquee between About and Portfolio.
 
