@@ -32,6 +32,7 @@ module.exports = {
         "text-primary": "var(--color-text-primary)",
         "text-secondary": "var(--color-text-secondary)",
         "text-muted": "var(--color-text-muted)",
+        "nav-text": "var(--color-nav-text)",
         subtle: "var(--color-border)",
         "button-bg": "var(--color-button-bg)",
         "button-bg-hover": "var(--color-button-bg-hover)",
@@ -41,6 +42,13 @@ module.exports = {
       },
       backdropBlur: {
         glass: "var(--glass-blur)",
+      },
+      // Nav-only contrast-safety scrim (src/globals.css --nav-scrim). A
+      // solid-color gradient so it lands on background-image and stacks on
+      // top of bg-glass-bg's background-color rather than replacing it —
+      // additive, per the brief's "scrim, not a global opacity increase".
+      backgroundImage: {
+        "nav-scrim": "linear-gradient(var(--nav-scrim), var(--nav-scrim))",
       },
       borderRadius: {
         glass: "var(--glass-radius)",
@@ -73,7 +81,7 @@ module.exports = {
     // Redesign_Brief.md §8 — accessibility fallbacks with no built-in Tailwind
     // variant: solid fallback when the OS asks for reduced transparency, and
     // when backdrop-filter isn't supported at all (§9 tier 3).
-    function ({ addVariant }) {
+    function ({ addVariant, addUtilities }) {
       addVariant(
         "reduced-transparency",
         "@media (prefers-reduced-transparency: reduce)"
@@ -82,6 +90,21 @@ module.exports = {
         "no-backdrop-filter",
         "@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)))"
       );
+      // Nav-only legibility halo (src/globals.css --nav-halo). Mode-aware:
+      // .nav-halo is a text-shadow for nav text, .nav-halo-graphic the
+      // matching drop-shadow for nav icons/flags/logo. Gives glyphs a
+      // local contrast floor over busy scrolled content in the direction
+      // the single-tint --nav-scrim can't reach; tiny enough to disappear
+      // over calm backgrounds.
+      addUtilities({
+        ".nav-halo": {
+          textShadow: "var(--nav-halo-core), var(--nav-halo-spread)",
+        },
+        ".nav-halo-graphic": {
+          filter:
+            "drop-shadow(var(--nav-halo-core)) drop-shadow(var(--nav-halo-spread))",
+        },
+      });
     },
   ],
   darkMode: "class",

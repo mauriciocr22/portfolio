@@ -17,6 +17,11 @@
   --color-text-primary: #141414;
   --color-text-secondary: #5c5c5c;
   --color-text-muted: #8a8a8a;
+  /* Resting nav links (Nav.tsx INTERACTIVE). A step darker than
+     --color-text-secondary so the nav reads a little stronger; still short
+     of --color-text-primary, which the hover/active state uses. Mirrors
+     lighter in dark mode, like the other text tokens. */
+  --color-nav-text: #454545;
   --color-border: rgba(0, 0, 0, 0.1);
 
   --color-button-bg: #141414;
@@ -29,6 +34,28 @@
   --glass-border: rgba(0, 0, 0, 0.12);
   --glass-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
   --shadow-hover: 0 12px 36px rgba(0, 0, 0, 0.2);
+
+  /* Nav-only contrast-safety scrim (Nav.tsx GLASS_PANEL / bg-nav-scrim). An
+     additive tint toward the mode's canvas — light in light mode, dark in
+     dark — that gives nav text a more predictable ground than whatever
+     scrolls past. Separate from --glass-bg (untouched). Best-effort per §5
+     "scrim, not a global opacity increase"; works alongside --nav-halo,
+     combined measured table in Nav.tsx. */
+  --nav-scrim: rgba(255, 255, 255, 0.2);
+
+  /* Nav-only legibility halo — a stacked text-shadow on nav text and the
+     matching drop-shadow on nav icons (tailwind.config.js .nav-halo /
+     .nav-halo-graphic, wired through Nav.tsx's INTERACTIVE + Logo.tsx).
+     Two layers: a tight dense core right at the glyph edge (0 0 1px / .65)
+     plus a soft spread (0 1px 4px / .5). Gives each glyph a local contrast
+     floor when the nav sits over busy scrolled content (the About photo
+     runs near-black to near-white in the nav's path). Light-mode text is
+     dark, so the halo is LIGHT; .dark mirrors it in black. Two custom
+     props, not one, so the icon's drop-shadow can restack the same layers
+     (drop-shadow() takes no comma list). Best-effort, not a WCAG-AA
+     guarantee — measured numbers in Nav.tsx. */
+  --nav-halo-core: 0 0 1px rgba(255, 255, 255, 0.65);
+  --nav-halo-spread: 0 1px 4px rgba(255, 255, 255, 0.5);
 
   /* Redesign_Brief.md §5 "Per-component overrides" — TechMarquee's badges
      only. Background/border now reuse --color-surface-solid/--color-border
@@ -54,6 +81,7 @@
   --color-text-primary: #f5f5f5;
   --color-text-secondary: #a3a3a3;
   --color-text-muted: #707070;
+  --color-nav-text: #bdbdbd;
   --color-border: rgba(255, 255, 255, 0.1);
 
   --color-button-bg: #f5f5f5;
@@ -65,6 +93,10 @@
   --glass-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
   --shadow-hover: 0 12px 36px rgba(0, 0, 0, 0.45);
   --marquee-badge-shadow: 0 4px 16px rgba(0, 0, 0, 0.48);
+  --nav-scrim: rgba(0, 0, 0, 0.2);
+  /* Dark-mode nav text is light, so the halo mirrors to black. */
+  --nav-halo-core: 0 0 1px rgba(0, 0, 0, 0.65);
+  --nav-halo-spread: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 body {

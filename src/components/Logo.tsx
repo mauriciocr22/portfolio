@@ -15,7 +15,7 @@ export default function Logo() {
           brought in line with its container here. */}
       <span
         aria-hidden="true"
-        className="block w-10 aspect-[2000/1025] bg-text-secondary dark:bg-white"
+        className="block w-10 aspect-[2000/1025] bg-text-secondary dark:bg-white nav-halo-graphic"
         style={{
           maskImage: `url(${logoIcon})`,
           WebkitMaskImage: `url(${logoIcon})`,

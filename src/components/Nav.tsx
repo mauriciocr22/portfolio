@@ -23,13 +23,51 @@ const NAV_LINKS = [
 // Redesign_Brief.md §5 — the glass material: translucent tint + blur, bordered,
 // with a solid fallback for reduced-transparency and no-backdrop-filter tiers
 // (§8, §9 tier 3). Tokens only, no inline blur/opacity/radius values.
+//
+// bg-nav-scrim (globals.css --nav-scrim) is an additive contrast-safety
+// layer, nav-only, per §5 "scrim, not a global opacity increase". A
+// background-image (solid-color gradient) so it stacks on bg-glass-bg's
+// background-color rather than replacing it; sits over the blurred
+// backdrop / under the content. --glass-bg untouched. Tints toward the
+// mode's canvas (light in light mode, dark in dark). Dropped (bg-none) in
+// the two fallback tiers, which are already opaque. Works together with
+// the nav-halo below — see the combined measured table there.
 const GLASS_PANEL =
-  "rounded-glass border border-glass-border bg-glass-bg shadow-glass backdrop-blur-glass " +
-  "no-backdrop-filter:bg-surface-solid/90 no-backdrop-filter:backdrop-blur-none " +
-  "reduced-transparency:bg-surface-solid reduced-transparency:backdrop-blur-none";
+  "rounded-glass border border-glass-border bg-glass-bg bg-nav-scrim shadow-glass backdrop-blur-glass " +
+  "no-backdrop-filter:bg-surface-solid/90 no-backdrop-filter:bg-none no-backdrop-filter:backdrop-blur-none " +
+  "reduced-transparency:bg-surface-solid reduced-transparency:bg-none reduced-transparency:backdrop-blur-none";
 
+// nav-halo / nav-halo-graphic (globals.css --nav-halo-core/-spread): a
+// mode-aware stacked text-shadow on the text and the matching stacked
+// drop-shadow on any child icon/flag — a tight dense core at the glyph
+// edge plus a soft spread — giving each glyph a local contrast floor
+// regardless of what scrolls behind the nav.
+//
+// BEST-EFFORT, still not a full WCAG-AA guarantee. Measured from rendered
+// pixels immediately adjacent to the strokes, over the About photo
+// (near-black hair/hoodie to near-white sky, both in the nav's path),
+// primary / secondary contrast (secondary row measured with the old
+// --color-text-secondary; resting nav links now use the darker
+// --color-nav-text, so those shift up over light regions / down over dark):
+//                        halo alone        scrim 0.2 + halo
+//   light · over sky      9.3 / 3.6         10.2 / 4.0
+//   light · over dark     2.4 / 1.8          3.7 / 1.9
+//   dark  · over sky      2.4 / 1.4          3.4 / 1.9
+//   dark  · over dark    10.4 / 5.0         11.3 / 5.6
+// Scrim + stacked halo is the strongest combination tried and lifts
+// PRIMARY text over the hard regions from ~2 to ~3.4-3.7 — the closest
+// yet — but the two cross-luminance cells and the mid-tone SECONDARY
+// colour still sit below 4.5. Closing that fully needs occluding the
+// backdrop near the text (heavier scrim / outline plate), which the "no
+// more panel opacity" and "invisible over calm hero" constraints rule
+// out. Over the calm hero the halo delta is ~0 (12.1 -> 12.5), invisible.
+//
+// Every nav control (incl. the portaled language popover and the mobile
+// menu) routes through INTERACTIVE, so this reaches all of them; the
+// Logo's masked span carries nav-halo-graphic directly.
 const INTERACTIVE =
-  "rounded-glass text-text-secondary transition-colors hover:bg-glass-border hover:text-text-primary " +
+  "rounded-glass text-nav-text transition-colors hover:bg-glass-border hover:text-text-primary " +
+  "nav-halo [&_svg]:nav-halo-graphic [&_img]:nav-halo-graphic " +
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-text-primary";
 
 export default function Nav({ darkMode, toggleDarkMode }: NavProps) {
