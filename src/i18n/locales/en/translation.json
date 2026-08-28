@@ -31,5 +31,80 @@
     "esc-site": {
       "description": "Landing page created for the ESC rock band."
     }
+  },
+  "techStack": {
+    "categories": {
+      "languages": {
+        "intro": "A mix of what I use daily — JavaScript and TypeScript — and languages picked up through coursework or on my own, like Java, C#, and C++."
+      },
+      "frameworks": {
+        "intro": "React and Node.js anchor most of what I build, with TailwindCSS handling styling in nearly every frontend project. Spring Boot and Styled Components round things out from coursework and side projects."
+      },
+      "databases": {
+        "intro": "PostgreSQL and Prisma are my go-to pairing for most projects, with MongoDB in the mix from an earlier course."
+      },
+      "tools": {
+        "intro": "Git and Docker are steady parts of how I work, alongside Railway for deployment and Claude as part of my actual development process."
+      }
+    },
+    "technologies": {
+      "javascript": {
+        "description": "My main programming language. Used in academic, personal and professional projects."
+      },
+      "typescript": {
+        "description": "Always using alongside React and Node.js. Used in academic, personal and professional projects."
+      },
+      "java": {
+        "description": "Learnt through college. Used in academic and professional projects."
+      },
+      "csharp": {
+        "description": "Studied and learnt by myself. Mostly used in personal projects."
+      },
+      "cpp": {
+        "description": "Studied through college. Used mostly in academic projects."
+      },
+      "react": {
+        "description": "My most used front-end tech. Have been using it for years, with both functional and class components."
+      },
+      "react-native": {
+        "description": "My most used mobile tech. Studied through college and used in academic and personal projects."
+      },
+      "nextjs": {
+        "description": "Studied by myself and used in personal projects."
+      },
+      "nodejs": {
+        "description": "My most used backend tech. Mostly combined with Prisma and PostgreSQL."
+      },
+      "tailwindcss": {
+        "description": "My favorite and most used CSS framework. Used in most of my front-end projects."
+      },
+      "styled-components": {
+        "description": "Studied by myself and used in personal projects."
+      },
+      "spring-boot": {
+        "description": "Learnt in college, and applied in personal and academic projects. Used in my KidsCoin project."
+      },
+      "mongodb": {
+        "description": "Studied and used in projects with Node.js through a Udemy course."
+      },
+      "postgresql": {
+        "description": "My most used database, used in most of my projects."
+      },
+      "prisma": {
+        "description": "My favorite and most used ORM. Used in most of my Node.js projects."
+      },
+      "docker": {
+        "description": "Used in personal and academic projects."
+      },
+      "railway": {
+        "description": "Used to deploy my KidsCoin project with Spring Boot and PostgreSQL. Got familiar with it."
+      },
+      "git": {
+        "description": "Git Flow for branching, day-to-day version control across every project I've built."
+      },
+      "claude": {
+        "description": "Used with structured practices: spec-driven development via Spec Kit and TDD, not just casual vibe coding."
+      }
+    }
   }
 }

@@ -1,7 +1,9 @@
 import { useEffect, useId, useRef, useState } from "react";
+import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 import { FiX } from "react-icons/fi";
 import { TECH_STACK, TechCategory } from "../data/techStack";
+import usePrefersReducedMotion from "../hooks/usePrefersReducedMotion";
 
 // Redesign_Brief.md §7 — same content-layer rule as project cards: solid
 // surface, not glass. Shared --glass-radius corner, border, and the
@@ -64,7 +66,8 @@ const CARD =
 
 // Same tag style Portfolio.tsx's project cards already use for their own
 // tech-stack lists, reused verbatim rather than inventing a second one.
-// Used by both the card's mobile chip row and the modal's full list.
+// Used only by the card's mobile chip row — the modal lists technologies
+// as rows, not badges.
 const TAG =
   "shrink-0 rounded-full border border-subtle bg-subtle px-2.5 py-0.5 text-xs text-text-secondary";
 
@@ -76,15 +79,28 @@ const TAG =
 const LEARN_MORE =
   "mt-auto inline-flex items-center gap-1 pt-4 text-sm font-medium text-text-primary";
 
-// Placeholder for this category's detail modal. Redesign_Brief.md §7 lists
-// modals as glass with the full §8 treatment — solid fallback under
-// prefers-reduced-transparency, a focus trap, body-scroll lock — and that
-// ships as its own component next, per the brief's one-component-at-a-time
-// process. This interim overlay is already solid (bg-surface-solid), so
-// the reduced-transparency requirement is met as-is; it also handles
-// Escape, backdrop-click, and focus in/restore. Still owed by the real
-// component: the focus trap and the scroll lock. The bg-black/50 scrim is
-// interim too — the real modal adds a proper backdrop token to §7.
+// This category's detail modal. Redesign_Brief.md §7 lists modals as glass;
+// kept SOLID (bg-surface-solid) deliberately — a solid panel guarantees §8
+// AA for its text over any backdrop and is itself the §8
+// prefers-reduced-transparency fallback, so there's no separate
+// reduced-transparency code path to owe. Converting to glass is a separate
+// visual call, not part of this content-layout build.
+//
+// Structure: a fixed-max-height flex column. Header (title + close) and the
+// intro line + divider are shrink-0 and never scroll; only the <ul> of
+// technologies scrolls (overflow-y-auto, min-h-0 so flex lets it shrink
+// below content size), so the panel can't grow unbounded as the list gets
+// longer. The <ul> is tabIndex=0 + aria-labelled so keyboard users can
+// focus and arrow-scroll it.
+//
+// Accessibility: role="dialog" + aria-modal + aria-labelledby; focus moves
+// to the close button on open and is trapped within the dialog on Tab /
+// Shift+Tab; Escape and backdrop click close; focus returns to the opener
+// card via TechCard's handleClose. Body scroll is locked while open so
+// scrolling the list can't chain to the page. The scale/opacity entrance
+// (motion, §6 ~150ms ease-out) is skipped entirely — initial={false} —
+// when prefers-reduced-motion is set (§8: end state immediately, not a
+// slower transition). The bg-black/50 dimming scrim is unchanged.
 interface CategoryModalProps {
   category: TechCategory;
   onClose: () => void;
@@ -92,62 +108,164 @@ interface CategoryModalProps {
 
 function CategoryModal({ category, onClose }: CategoryModalProps) {
   const { t } = useTranslation();
+  const prefersReducedMotion = usePrefersReducedMotion();
   const titleId = useId();
   const closeRef = useRef<HTMLButtonElement>(null);
-  const Icon = category.icon;
+  const dialogRef = useRef<HTMLDivElement>(null);
 
+  // Move focus in on open; keep Tab within the dialog; Escape closes.
   useEffect(() => {
     closeRef.current?.focus();
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (event.key !== "Tab" || !dialogRef.current) return;
+
+      const focusable = Array.from(
+        dialogRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )
+      );
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+
+      if (!dialogRef.current.contains(active)) {
+        event.preventDefault();
+        first.focus();
+      } else if (event.shiftKey && active === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
   }, [onClose]);
+
+  // Lock page scroll while open so scrolling the list can't chain to the
+  // page behind it. `overflow: hidden` on <html> removes the scrollbar; if
+  // that scrollbar took up layout width (classic, not overlay), removing it
+  // widens the page and shifts everything — including the fixed nav, which
+  // is positioned against the viewport and so out of reach of any <body>
+  // padding. Only then, reserve that width back: `scrollbar-gutter: stable`
+  // where supported, else a plain padding-right. When the measured width is
+  // 0 (overlay scrollbars) there's nothing to compensate — and crucially
+  // `scrollbar-gutter: stable` must NOT be set in that case, since it would
+  // reserve a gutter that wasn't there and cause the shift itself.
+  useEffect(() => {
+    const html = document.documentElement;
+    const scrollbarWidth = window.innerWidth - html.clientWidth;
+    const supportsGutter =
+      typeof CSS !== "undefined" &&
+      typeof CSS.supports === "function" &&
+      CSS.supports("scrollbar-gutter", "stable");
+
+    const previous = {
+      overflow: html.style.overflow,
+      scrollbarGutter: html.style.scrollbarGutter,
+      paddingRight: html.style.paddingRight,
+    };
+
+    html.style.overflow = "hidden";
+    if (scrollbarWidth > 0) {
+      if (supportsGutter) {
+        html.style.scrollbarGutter = "stable";
+      } else {
+        html.style.paddingRight = `${scrollbarWidth}px`;
+      }
+    }
+
+    return () => {
+      html.style.overflow = previous.overflow;
+      html.style.scrollbarGutter = previous.scrollbarGutter;
+      html.style.paddingRight = previous.paddingRight;
+    };
+  }, []);
 
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-canvas-margin-mobile"
       onClick={onClose}
     >
-      <div
+      <motion.div
+        ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="w-full max-w-sm rounded-glass border border-subtle bg-surface-solid p-6 shadow-glass"
         onClick={(event) => event.stopPropagation()}
+        initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.15, ease: "easeOut" }}
+        className="flex max-h-[min(24rem,85vh)] w-[min(520px,90vw)] flex-col overflow-hidden rounded-glass border border-subtle bg-surface-solid shadow-glass"
       >
-        <div className="flex items-start justify-between gap-4">
-          <Icon
-            className="h-8 w-8 shrink-0 text-text-primary"
-            aria-hidden="true"
-          />
+        {/* Header — fixed, never scrolls */}
+        <div className="flex shrink-0 items-start justify-between gap-4 p-6 pb-4">
+          <h2 id={titleId} className="text-lg font-semibold text-text-primary">
+            {category.name}
+          </h2>
           <button
             ref={closeRef}
             type="button"
             onClick={onClose}
             aria-label={t("techStackModalClose")}
-            className="rounded-badge p-1 text-text-secondary transition-colors hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-text-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-solid"
+            className="-m-1 shrink-0 rounded-badge p-1 text-text-secondary transition-colors hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-text-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-solid"
           >
             <FiX className="h-5 w-5" aria-hidden="true" />
           </button>
         </div>
 
-        <h2
-          id={titleId}
-          className="mt-4 text-lg font-semibold text-text-primary"
-        >
-          {category.name}
-        </h2>
+        {/* Category intro — fixed */}
+        <p className="shrink-0 px-6 text-sm leading-snug text-text-secondary">
+          {t(`techStack.categories.${category.slug}.intro`)}
+        </p>
 
-        <ul className="mt-3 flex flex-wrap gap-1.5">
-          {category.technologies.map((tech) => (
-            <li key={tech} className={TAG}>
-              {tech}
-            </li>
-          ))}
+        {/* Technology list — the only part that scrolls */}
+        <ul
+          tabIndex={0}
+          aria-label={category.name}
+          className="tech-list-scrollbar mt-4 min-h-0 flex-1 overflow-y-auto border-t border-subtle px-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-text-primary"
+        >
+          {category.technologies.map((tech, index) => {
+            const TechIcon = tech.icon;
+            return (
+              <li
+                key={tech.name}
+                className={index > 0 ? "border-t border-subtle" : ""}
+              >
+                <div className="flex gap-3 py-3">
+                  {/* Fixed h-5 box (= the name line's line-height) centring a
+                      smaller glyph — keeps every icon optically the same size
+                      and aligned to the name row, regardless of how each
+                      icon set fills its own viewBox. */}
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center">
+                    <TechIcon
+                      className="h-4 w-4 text-text-secondary"
+                      aria-hidden="true"
+                    />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium text-text-primary">
+                      {tech.name}
+                    </p>
+                    <p className="mt-0.5 text-sm leading-snug text-text-secondary">
+                      {t(`techStack.technologies.${tech.slug}.description`)}
+                    </p>
+                  </div>
+                </div>
+              </li>
+            );
+          })}
         </ul>
-      </div>
+      </motion.div>
     </div>
   );
 }
@@ -158,10 +276,9 @@ function TechCard({ category }: { category: TechCategory }) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { name, icon: Icon, technologies } = category;
 
-  // Threshold, not a per-category hardcode. None of the four categories
-  // currently exceeds 5, so no card shows a "+N more" chip right now —
-  // that's a consequence of the real data, not a sign the logic is unused;
-  // it'll kick in for any category that grows past 5 later.
+  // Threshold, not a per-category hardcode. Frameworks & Libs has 7
+  // technologies, so its card shows the first 5 followed by a "+2 more"
+  // chip; the other three categories are at or under 5 and show no chip.
   const shown = technologies.slice(0, 5);
   const remaining = technologies.length - 5;
 
@@ -197,8 +314,8 @@ function TechCard({ category }: { category: TechCategory }) {
             by side before wrapping — the case chips actually solve. */}
         <span className="mt-3 flex flex-wrap items-start gap-1.5 md:hidden">
           {shown.map((tech) => (
-            <span key={tech} className={TAG}>
-              {tech}
+            <span key={tech.name} className={TAG}>
+              {tech.name}
             </span>
           ))}
           {remaining > 0 && (
@@ -214,7 +331,7 @@ function TechCard({ category }: { category: TechCategory }) {
             buying anything there; flowing text wraps the same words more
             plainly. */}
         <span className="mt-2 hidden text-sm leading-snug text-text-secondary md:block">
-          {shown.join(", ")}
+          {shown.map((tech) => tech.name).join(", ")}
           {remaining > 0 && `, ${t("techStackMoreCount", { count: remaining })}`}
         </span>
 
