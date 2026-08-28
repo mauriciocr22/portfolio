@@ -1,11 +1,7 @@
 import ScrollArrow from "./ScrollArrow";
 import { useTranslation } from "react-i18next";
 
-interface HomeProps {
-  darkMode: boolean;
-}
-
-export default function Home({ darkMode }: HomeProps) {
+export default function Home() {
   const { t } = useTranslation();
 
   return (
@@ -13,16 +9,6 @@ export default function Home({ darkMode }: HomeProps) {
       id="home"
       className="flex flex-col w-full h-full items-center justify-center px-8"
     >
-      <div
-        className={`absolute inset-0 -z-40 transition-opacity duration-200 pointer-events-none bg-gradient-to-r from-white to-black/20 ${
-          darkMode ? "opacity-0" : "opacity-100"
-        }`}
-      ></div>
-      <div
-        className={`absolute inset-0 -z-40 transition-opacity duration-200 pointer-events-none bg-gradient-to-r from-[#0f0f0f] to-[#1b1b1b] ${
-          darkMode ? "opacity-100" : "opacity-0"
-        }`}
-      ></div>
       <span className="font-canada text-lg font-semibold md:text-xl dark:text-slate-200">
         {t("headerTitle")}
       </span>

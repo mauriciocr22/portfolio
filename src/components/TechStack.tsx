@@ -122,7 +122,7 @@ export default function TechStack() {
     // that strip.
     <section
       id="tech-stack"
-      className="flex w-full flex-col items-center bg-canvas px-canvas-margin-mobile py-16 md:px-canvas-margin-desktop"
+      className="flex w-full flex-col items-center px-canvas-margin-mobile py-16 md:px-canvas-margin-desktop"
     >
       <h2 className="mb-10 border-b-2 border-text-primary text-3xl font-semibold text-text-primary">
         {t("techStackHeading")}

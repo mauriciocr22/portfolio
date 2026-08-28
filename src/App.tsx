@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="w-full h-full">
       <Nav darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-      <Home darkMode={darkMode} />
+      <Home />
       <TechStack />
       <About />
       <TechMarquee />

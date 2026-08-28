@@ -23,7 +23,7 @@ export default function Portfolio() {
   return (
     <section
       id="portfolio"
-      className="w-full flex flex-col items-center bg-canvas px-canvas-margin-mobile py-16 md:px-canvas-margin-desktop"
+      className="w-full flex flex-col items-center px-canvas-margin-mobile py-16 md:px-canvas-margin-desktop"
     >
       <h2 className="mb-10 border-b-2 border-text-primary font-canada text-3xl font-semibold text-text-primary">
         {t("navProjects")}

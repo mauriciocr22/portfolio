@@ -9,6 +9,10 @@
  */
 :root {
   --color-canvas: #fafafa;
+  /* App-wide backdrop. A single horizontal gradient painted on <body> and
+     shown through every section (none carry their own background), so the
+     whole page reads as one continuous canvas rather than stacked bands. */
+  --gradient-canvas: linear-gradient(to right, #ffffff, rgba(0, 0, 0, 0.2));
   --color-surface-solid: #ffffff;
   --color-text-primary: #141414;
   --color-text-secondary: #5c5c5c;
@@ -45,6 +49,7 @@
 
 .dark {
   --color-canvas: #0a0a0a;
+  --gradient-canvas: linear-gradient(to right, #0f0f0f, #1b1b1b);
   --color-surface-solid: #141414;
   --color-text-primary: #f5f5f5;
   --color-text-secondary: #a3a3a3;
@@ -75,12 +80,12 @@ html {
 }
 
 body {
-  /* Ambient page background. TechMarquee sits between About and Portfolio
-     with no background of its own (Redesign_Brief.md §5 "Three-layer
-     model" — the canvas is the base surface, and this section IS canvas,
-     not a panel on top of it), so this is what shows through the gap
-     instead of the browser's own white default in dark mode. */
-  @apply h-full w-full m-0 p-0 bg-canvas;
+  /* Ambient page background for the whole app. Every section is
+     background-less and floats its content directly over this gradient
+     (Redesign_Brief.md §5 "Three-layer model" — one continuous canvas is
+     the base surface, sections are content/panels on top of it). */
+  @apply h-full w-full m-0 p-0;
+  background-image: var(--gradient-canvas);
 }
 
 section {
