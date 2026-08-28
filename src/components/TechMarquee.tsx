@@ -121,8 +121,14 @@ export default function TechMarquee() {
     // (vs. a `<div>`) keeps the global `section { scroll-mt-[15vh] }` rule
     // so that scroll still clears the fixed nav.
     <section id="skills" className="w-full">
-      {/* Full-bleed breakout — same w-screen + negative-margin technique as
-          ProjectsCarousel's mobile track — so the strip runs edge to edge.
+      {/* Full-bleed strip. This section already runs edge to edge — App has
+          no horizontal padding and the <section> is w-full — so a plain
+          w-full wrapper spans the viewport on its own. It deliberately does
+          NOT use ProjectsCarousel's w-screen + calc(50%-50vw) margin trick:
+          that's for escaping a padded parent (Portfolio's px-canvas-margin),
+          which this section doesn't have, and 100vw counts the vertical
+          scrollbar gutter, so the wrapper would overhang the body by half a
+          scrollbar width and add a horizontal scrollbar.
           The mask fades both edges so badges dissolve in/out instead of
           hard-clipping at the viewport boundary; that ongoing crossfade is
           untouched by the mount fade below — separate concern, separate
@@ -143,7 +149,7 @@ export default function TechMarquee() {
         animate={{ opacity: 1 }}
         transition={{ duration: MOUNT_FADE_SECONDS }}
         className={
-          "ml-[calc(50%-50vw)] mr-[calc(50%-50vw)] w-screen overflow-hidden py-5 " +
+          "w-full overflow-hidden py-5 " +
           "[mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)] " +
           "[-webkit-mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
         }
