@@ -3,6 +3,40 @@
 @tailwind utilities;
 
 /*
+ * Redesign_Brief.md §4 — the single display face (h1/h2 only), self-hosted
+ * from @fontsource-variable/bricolage-grotesque. Only the two subsets the
+ * brief calls for: `latin` and `latin-ext` (the latter is required, not
+ * optional — í/ã/õ/ç and the developer's own name would otherwise fall back
+ * mid-word). The package's own `index.css` also ships a `vietnamese` face;
+ * these two @font-face rules are declared by hand instead so that subset is
+ * left out. `wght`-axis file only — the scale never varies width or optical
+ * size. Ranges copied verbatim from the package's index.css.
+ */
+@font-face {
+  font-family: "Bricolage Grotesque Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url("@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2")
+    format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+    U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+    U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Bricolage Grotesque Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url("@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-ext-wght-normal.woff2")
+    format("woff2-variations");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+    U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+    U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
+}
+
+/*
  * Design tokens — Redesign_Brief.md §3 (color) and §5 (glass, canvas & layout).
  * useDarkMode toggles a `.dark` class on <body>, so overrides live on `.dark`
  * rather than the brief's placeholder `[data-theme="dark"]` selector.
@@ -75,7 +109,24 @@
 
   --canvas-margin-mobile: 16px;
   --canvas-margin-desktop: 24px;
+  /* Responsive alias of the -mobile/-desktop pair above: one value that
+     swaps at the md breakpoint (see the media query below) so calc()
+     consumers — the hero's min-height / nav offset, Redesign_Brief.md §4 —
+     don't each need their own md: variant. */
+  --canvas-margin: var(--canvas-margin-mobile);
   --panel-gap: 12px;
+
+  /* Rendered height of the fixed top-nav glass panel (Nav.tsx): a ~36px
+     control row + 12px×2 py-3 + 1px×2 border. The hero measures its
+     first-screen height against this (Redesign_Brief.md §4). Not
+     theme-dependent. */
+  --nav-height: 62px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --canvas-margin: var(--canvas-margin-desktop);
+  }
 }
 
 .dark {
@@ -134,14 +185,6 @@ html,
   @apply h-full;
 }
 
-.scrollWrapper {
-  @apply translate-x-1/2 translate-y-1/2 transition-opacity ease-in duration-500 absolute bottom-[calc(0%+64px)] right-1/2 [&>:nth-child(2)]:[animation-delay:-0.2s] [&>:nth-child(3)]:[animation-delay:-0.4s];
-}
-
-.arrowSpan {
-  @apply block w-5 h-5 border-b border-r border-green-600 border-solid rotate-45 -m-[10px] animate-scroll;
-}
-
 .contact a * {
   @apply w-10 h-10 text-white;
 }
@@ -163,18 +206,6 @@ html,
 
 .desktopNav li {
   @apply font-semibold text-green-700 dark:text-green-500 text-lg cursor-pointer relative after:content-[""] after:absolute after:h-[2px] after:left-0 after:bottom-0 after:w-0 after:bg-green-700 dark:after:bg-green-500 after:transition-all hover:after:w-full;
-}
-
-.aboutContact {
-  @apply hidden md:flex gap-3;
-}
-
-.aboutContact a * {
-  @apply w-8 h-8 text-slate-700 dark:text-slate-200;
-}
-
-.aboutContact a:hover * {
-  @apply text-green-700 dark:text-green-600 transition-all;
 }
 
 @layer components {

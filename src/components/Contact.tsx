@@ -10,7 +10,7 @@ export default function Contact() {
       id="contact"
       className="w-full flex flex-col items-center px-7 pt-12"
     >
-      <h2 className="text-2xl text-slate-600 font-semibold mb-6 font-canada dark:text-slate-200 text-center">
+      <h2 className="text-2xl text-text-secondary font-semibold mb-6 font-canada text-center">
         {t("contactText")}
       </h2>
       <div className="flex gap-2 mb-10 contact">

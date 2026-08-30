@@ -350,10 +350,9 @@ export default function TechStack() {
   const { t } = useTranslation();
 
   return (
-    // Sits between Home and About — real content, kept near About's
-    // personal-narrative section rather than beside TechMarquee's
-    // decorative badge strip, so this card grid doesn't read as an echo of
-    // that strip.
+    // Sits right after About, ahead of TechMarquee — real content, so this
+    // card grid reads as its own section rather than an echo of the
+    // marquee's decorative badge strip just below it.
     <section
       id="tech-stack"
       className="flex w-full flex-col items-center px-canvas-margin-mobile py-16 md:px-canvas-margin-desktop"

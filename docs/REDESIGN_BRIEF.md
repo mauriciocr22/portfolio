@@ -56,22 +56,47 @@ Two modes, one token set, values swapped under a dark-mode selector. Adjust the 
 
 ## 4. Typography
 
-The brief's whole premise is "feel like native Apple UI," so the typeface should be the actual one Apple UI renders in, not a lookalike. Use the system font stack — it resolves to San Francisco on macOS/iOS/Safari and a sensible native equivalent elsewhere, which is more authentic to the direction than importing a webfont that approximates it.
+Two faces. The system stack handles body, UI, and all dense content — it
+resolves to San Francisco on Apple platforms, which is authentic to the
+direction. A single display face carries h1 and h2 only, to give the
+monochrome system the character it can't get from color.
 
 ```css
+--font-display: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, sans-serif;
 --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
---font-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, monospace; /* for code snippets, if the portfolio shows any */
+--font-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, monospace;
 ```
 
-Type scale (adjust once real content is in place):
+**`--font-display` is restricted to h1 and h2.** Not body, not buttons,
+not nav, not badges, not fact tiles, not card titles. If a component
+seems to need it, that's a signal the heading hierarchy is wrong, not
+that the restriction should be relaxed.
 
-| Role | Size | Weight |
-|---|---|---|
-| Display / hero | 48–64px | 600 |
-| Section heading | 28–32px | 600 |
-| Subheading | 18–20px | 500 |
-| Body | 16px | 400 |
-| Caption / metadata | 13px | 400 |
+Self-hosted via `@fontsource-variable/bricolage-grotesque`, subset
+`latin` + `latin-ext`. The latin-ext subset is required, not optional —
+without it, í/ã/õ/ç fall back to a different face mid-word in both
+Portuguese and the developer's own name.
+
+| Role | Size (desktop) | Size (mobile) | Weight | Face | Tracking | Line height |
+|---|---|---|---|---|---|---|
+| Display / hero | 72–88px | 40–48px | 600 | display | -0.03em | 1.02 |
+| Section heading | 40–48px | 30–34px | 600 | display | -0.02em | 1.1 |
+| Subheading | 18–20px | 17–18px | 500 | sans | normal | 1.4 |
+| Lead paragraph | 26px | 26px | 400 | sans | -0.02em | 1.3 |
+| Body | 16px | 16px | 400 | sans | normal | 1.7 |
+| Caption / metadata | 13px | 13px | 400 | sans | normal | 1.5 |
+
+Body copy is capped at a 65-character measure. Negative tracking applies
+above 40px, and to the lead paragraph; elsewhere below 40px it hurts
+legibility rather than helping. The lead is the opening sentence of a body
+block, pulled out and enlarged so it can carry a section that has no
+visible heading (About); the rest of the block drops to ~15.5px secondary
+so the lead clearly leads.
+
+The gap between heading and body sizes is load-bearing. The previous
+28–32px section heading against 16px body was too small a jump and read
+as flat — that contrast is what carries hierarchy in a system with no
+accent color.
 
 ## 5. Spatial & material system
 
@@ -147,10 +172,14 @@ Resting elevation still uses `--glass-shadow` regardless of whether the panel it
 ```css
 --canvas-margin-mobile: 16px;   /* panel-to-viewport-edge gap */
 --canvas-margin-desktop: 24px;
+--canvas-margin: <the active one>;  /* responsive alias: resolves to -mobile below 768px, -desktop at/above. One value for calc() consumers (e.g. the hero's min-height) that would otherwise carry a breakpoint variant per call site. */
 --panel-gap: 12px;              /* space between adjacent floating panels */
+--nav-height: 62px;            /* rendered height of the fixed top-nav panel: ~36px control row + 12px×2 padding + 1px×2 border. The hero sizes its first screen against this. Not theme-dependent. */
 ```
 
 Panels never sit flush against the viewport edge or against each other — the visible gap is what reads as floating rather than docked. On small screens, reduce `--canvas-margin`, not `--glass-radius`; a smaller radius reads as a regular card and breaks the effect.
+
+The **hero** fills `calc(85svh - var(--nav-height) - var(--canvas-margin))` and pads its top by `var(--nav-height) + var(--canvas-margin)` so its vertically-centred content clears the fixed nav on short viewports.
 
 ### Corner treatment
 

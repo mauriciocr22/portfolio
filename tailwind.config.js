@@ -6,21 +6,58 @@ module.exports = {
       fontFamily: {
         spartan: ["League Spartan", "sans-serif"],
         canada: ["Radio Canada Big", "sans-serif"],
+        // Redesign_Brief.md §4 — the one display face, restricted to h1/h2.
+        // Self-hosted @font-face lives in src/globals.css (latin + latin-ext
+        // subsets only); the fallback chain matches the brief verbatim.
+        display: [
+          '"Bricolage Grotesque Variable"',
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "sans-serif",
+        ],
+      },
+      // Redesign_Brief.md §4 type scale. Each token carries its own
+      // line-height, tracking and weight so one utility is the whole spec.
+      // Negative tracking only above 40px (§4), so it's baked into display/
+      // heading but not the smaller roles. `*-sm` keys are the mobile sizes
+      // from the table — apply the base key at `md:`.
+      fontSize: {
+        "display-sm": [
+          "44px",
+          { lineHeight: "1.02", letterSpacing: "-0.03em", fontWeight: "600" },
+        ],
+        display: [
+          "80px",
+          { lineHeight: "1.02", letterSpacing: "-0.03em", fontWeight: "600" },
+        ],
+        "heading-sm": [
+          "32px",
+          { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "600" },
+        ],
+        heading: [
+          "44px",
+          { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "600" },
+        ],
+        "subheading-sm": ["18px", { lineHeight: "1.4", fontWeight: "500" }],
+        subheading: ["19px", { lineHeight: "1.4", fontWeight: "500" }],
+        // Lead paragraph — the opening sentence of a body block, promoted so
+        // it carries the section when there's no visible heading (About).
+        // -0.02em tracking is deliberate at this size (the §4 "40px+ only"
+        // note is about display/heading tracking); weight stays 400.
+        lead: ["26px", { lineHeight: "1.3", letterSpacing: "-0.02em" }],
+        body: ["16px", { lineHeight: "1.7" }],
+        caption: ["13px", { lineHeight: "1.5" }],
       },
       animation: {
-        scroll: "animate 2s infinite",
+        // Redesign_Brief.md §6 — page-load: one brief fade/rise on primary
+        // content. Consumers pair it with `motion-reduce:animate-none` (§8)
+        // so reduced-motion users land straight on the end state.
+        "fade-rise": "fade-rise 500ms ease-out both",
       },
       keyframes: {
-        animate: {
-          "0%": {
-            opacity: 0,
-            transform: "rotate(45deg) translate(-20px,-20px)",
-          },
-          "50%": { opacity: 1 },
-          "100%": {
-            opacity: 0,
-            transform: "rotate(45deg) translate(20px,20px)",
-          },
+        "fade-rise": {
+          "0%": { opacity: "0", transform: "translateY(12px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
         },
       },
       // Redesign_Brief.md §3/§5 — raw custom properties from src/globals.css
@@ -66,7 +103,21 @@ module.exports = {
       spacing: {
         "canvas-margin-mobile": "var(--canvas-margin-mobile)",
         "canvas-margin-desktop": "var(--canvas-margin-desktop)",
+        // Responsive edge-gap alias (globals.css --canvas-margin) plus the
+        // hero's nav clearance: nav height + one canvas margin, so centred
+        // hero content never sits under the fixed nav.
+        "canvas-margin": "var(--canvas-margin)",
+        "nav-offset": "calc(var(--nav-height) + var(--canvas-margin))",
         "panel-gap": "var(--panel-gap)",
+      },
+      minHeight: {
+        // Redesign_Brief.md §4 hero spec — 85svh less the fixed nav
+        // (--nav-height) and one --canvas-margin.
+        hero: "calc(85svh - var(--nav-height) - var(--canvas-margin))",
+      },
+      maxWidth: {
+        // Redesign_Brief.md §4 — body copy capped at a 65-character measure.
+        measure: "65ch",
       },
     },
     screens: {

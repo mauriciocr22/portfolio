@@ -14,8 +14,8 @@ function App() {
     <div className="w-full h-full">
       <Nav darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <Home />
-      <TechStack />
       <About />
+      <TechStack />
       <TechMarquee />
       <Portfolio />
       <Contact />
