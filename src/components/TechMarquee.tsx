@@ -116,11 +116,13 @@ export default function TechMarquee() {
   return (
     // No section-level background, padding, or heading — unlike every
     // other section here, this strip isn't a panel sitting on the canvas,
-    // it *is* canvas (agreed directly with the user). `id="skills"` stays
-    // so the nav's existing anchor still resolves, and the bare `<section>`
-    // (vs. a `<div>`) keeps the global `section { scroll-mt-[15vh] }` rule
-    // so that scroll still clears the fixed nav.
-    <section id="skills" className="w-full">
+    // it *is* canvas (agreed directly with the user). No `id` — it's a
+    // decorative continuation of the Tech Stack section above, not its own
+    // nav target; the "Skills" anchor points at `#skills` on <TechStack>
+    // so the jump lands on that section's heading, not here below it. Still
+    // a bare `<section>` (vs. a `<div>`) to keep the global
+    // `section { scroll-mt-[15vh] }` rule for any future in-page link.
+    <section className="w-full">
       {/* Full-bleed strip. This section already runs edge to edge — App has
           no horizontal padding and the <section> is w-full — so a plain
           w-full wrapper spans the viewport on its own. It deliberately does

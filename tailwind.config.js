@@ -38,6 +38,17 @@ module.exports = {
           "44px",
           { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "600" },
         ],
+        // Section heading — the single visible <h2> of a content section
+        // (Tech Stack, Projects), owned by <SectionHeading>. The §4 "Section
+        // heading" role, sat at the top of its 40–48px / 30–34px range with
+        // tracking pulled a touch tighter than the generic `heading` token so
+        // the larger size still reads tight. Paired mobile/desktop like
+        // display and lead: `section-sm` is the base, `md:text-section` on
+        // top. Line-heights stay RELATIVE so they scale with the size; weight
+        // is left to the component's `font-semibold`, matching how the h1
+        // sets its own.
+        "section-sm": ["30px", { lineHeight: "1.1", letterSpacing: "-0.03em" }],
+        section: ["48px", { lineHeight: "1.05", letterSpacing: "-0.035em" }],
         "subheading-sm": ["18px", { lineHeight: "1.4", fontWeight: "500" }],
         subheading: ["19px", { lineHeight: "1.4", fontWeight: "500" }],
         // Lead paragraph — the opening sentence of a body block, promoted so
@@ -121,6 +132,10 @@ module.exports = {
       maxWidth: {
         // Redesign_Brief.md §4 — body copy capped at a 65-character measure.
         measure: "65ch",
+        // Tighter cap for a <SectionHeading> block — a shorter measure than
+        // body copy so the optional subtitle wraps to two or three lines and
+        // reads as a caption under the title, not a paragraph.
+        "heading-measure": "44ch",
       },
     },
     screens: {

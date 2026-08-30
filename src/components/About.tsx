@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
 import selfieImg from "../assets/foto-720.jpg";
 import selfieImg2x from "../assets/foto-1440.jpg";
@@ -23,7 +23,6 @@ export default function About() {
     { href: "https://github.com/mauriciocr22", label: t("aboutGithubLabel"), Icon: FaGithub },
     { href: "https://www.linkedin.com/in/mauriciocr22/", label: t("aboutLinkedinLabel"), Icon: FaLinkedin },
     { href: "https://wa.me/13974069042", label: t("aboutWhatsappLabel"), Icon: IoLogoWhatsapp },
-    { href: "https://www.instagram.com/crmaumau/", label: t("aboutInstagramLabel"), Icon: FaInstagram },
   ];
 
   return (
@@ -129,7 +128,7 @@ export default function About() {
           </div>
 
           {/* Social links — last in the stack. w-fit so the pill hugs its
-              four icons (not w-full, no justify-between); the links, hover
+              three icons (not w-full, no justify-between); the links, hover
               states and focus rings are unchanged from before the move.
               mx-auto centres the hugged pill below md; md:mx-0 / md:mt-[26px]
               hold the desktop position exactly; mt-6 tightens it below md. */}

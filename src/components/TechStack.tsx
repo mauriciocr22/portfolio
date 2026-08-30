@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { FiX } from "react-icons/fi";
 import { TECH_STACK, TechCategory } from "../data/techStack";
 import usePrefersReducedMotion from "../hooks/usePrefersReducedMotion";
+import SectionHeading from "./SectionHeading";
 
 // Redesign_Brief.md §7 — same content-layer rule as project cards: solid
 // surface, not glass. Shared --glass-radius corner, border, and the
@@ -354,12 +355,13 @@ export default function TechStack() {
     // card grid reads as its own section rather than an echo of the
     // marquee's decorative badge strip just below it.
     <section
-      id="tech-stack"
+      id="skills"
       className="flex w-full flex-col items-center px-canvas-margin-mobile py-16 md:px-canvas-margin-desktop"
     >
-      <h2 className="mb-10 border-b-2 border-text-primary text-3xl font-semibold text-text-primary">
-        {t("techStackHeading")}
-      </h2>
+      <SectionHeading
+        title={t("techStackHeading")}
+        subtitle={t("techStackSubtitle")}
+      />
 
       <div className="grid w-full max-w-[1000px] grid-cols-1 gap-panel-gap md:grid-cols-2 lg:grid-cols-4">
         {TECH_STACK.map((category) => (

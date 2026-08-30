@@ -3,6 +3,7 @@ import { FaGithub } from "react-icons/fa";
 import { FiExternalLink } from "react-icons/fi";
 import { projects } from "../data/projects";
 import ProjectsCarousel from "./ProjectsCarousel";
+import SectionHeading from "./SectionHeading";
 
 // Redesign_Brief.md §7 — project cards are solid content, not glass: opaque
 // surface, no backdrop-filter. They still take the shared --glass-radius
@@ -25,9 +26,10 @@ export default function Portfolio() {
       id="portfolio"
       className="w-full flex flex-col items-center px-canvas-margin-mobile py-16 md:px-canvas-margin-desktop"
     >
-      <h2 className="mb-10 border-b-2 border-text-primary font-canada text-3xl font-semibold text-text-primary">
-        {t("navProjects")}
-      </h2>
+      <SectionHeading
+        title={t("navProjects")}
+        subtitle={t("projectsSubtitle")}
+      />
 
       {/* Below 768px: horizontal scroll-snap coverflow row (ProjectsCarousel).
           At 768px and up: the grid below, unchanged. */}
