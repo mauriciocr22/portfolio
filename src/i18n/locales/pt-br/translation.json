@@ -33,6 +33,8 @@
   "contactWhatsappCta": "Iniciar conversa",
   "contactCopyEmail": "Copiar endereço de e-mail",
   "contactCopied": "Copiado",
+  "footerBuiltWith": "Feito com React, TypeScript e Tailwind",
+  "footerBackToTop": "Voltar ao topo",
   "portuguese": "Português",
   "english": "Inglês",
   "projects": {
