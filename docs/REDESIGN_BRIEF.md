@@ -82,7 +82,7 @@ Portuguese and the developer's own name.
 | Display / hero | 72–88px | 40–48px | 600 | display | -0.03em | 1.02 |
 | Section heading | 40–48px | 30–34px | 600 | display | -0.02em | 1.1 |
 | Subheading | 18–20px | 17–18px | 500 | sans | normal | 1.4 |
-| Lead paragraph | 26px | 26px | 400 | sans | -0.02em | 1.3 |
+| Lead paragraph | 26px | 22px | 400 | sans | -0.02em | 1.3 |
 | Body | 16px | 16px | 400 | sans | normal | 1.7 |
 | Caption / metadata | 13px | 13px | 400 | sans | normal | 1.5 |
 

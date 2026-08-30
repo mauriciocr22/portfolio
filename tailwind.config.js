@@ -43,7 +43,10 @@ module.exports = {
         // Lead paragraph — the opening sentence of a body block, promoted so
         // it carries the section when there's no visible heading (About).
         // -0.02em tracking is deliberate at this size (the §4 "40px+ only"
-        // note is about display/heading tracking); weight stays 400.
+        // note is about display/heading tracking); weight stays 400. Both
+        // sizes keep a RELATIVE line-height so it scales with the font size;
+        // `lead-sm` is the mobile step, applied with `md:text-lead` on top.
+        "lead-sm": ["22px", { lineHeight: "1.3", letterSpacing: "-0.02em" }],
         lead: ["26px", { lineHeight: "1.3", letterSpacing: "-0.02em" }],
         body: ["16px", { lineHeight: "1.7" }],
         caption: ["13px", { lineHeight: "1.5" }],

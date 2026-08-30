@@ -33,13 +33,14 @@ export default function About() {
           (which used to lock in ~190px of dead space beneath it). */}
       <div className="mx-auto grid max-w-[1000px] gap-10 md:grid-cols-[minmax(0,320px)_1fr] md:items-start md:gap-12">
         {/* Left — just the portrait now; the social row moved into the
-            content column. items-start keeps it left-aligned with the rest
-            of the section below md. */}
-        <div className="flex flex-col items-start">
-          {/* Fixed square at every breakpoint — w-52 on mobile, the full
-              320px column on desktop (renders 320×320). --glass-radius
-              squircle, overflow clipped. */}
-          <div className="aspect-square w-52 overflow-hidden rounded-glass md:w-full">
+            content column. Centred below md with the rest of the section,
+            left-aligned again from md up. */}
+        <div className="flex flex-col items-center md:items-start">
+          {/* Below md: capped at 280px and centred (mx-auto). From md up:
+              unchanged — fills the 320px grid track (md:mx-0 md:max-w-none).
+              Scale only: aspect ratio, crop and object-position untouched.
+              --glass-radius squircle, overflow clipped. */}
+          <div className="mx-auto aspect-square w-full max-w-[280px] overflow-hidden rounded-glass md:mx-0 md:max-w-none">
             {/* Always full colour — no grayscale, no hover treatment.
                 Sharpness: the source is 2688² and renders at ≤320 CSS px
                 wide, so it is NOT upscaled — the srcset only spares the
@@ -54,14 +55,18 @@ export default function About() {
           </div>
         </div>
 
-        {/* Right — lead → body → byline → status pill → social links */}
-        <div>
+        {/* Right — lead → body → byline → status pill → social links.
+            Centre-aligned below md (matching the hero and every section
+            heading); left-aligned from md up, exactly as before. */}
+        <div className="text-center md:text-left">
           <h2 className="sr-only">{t("navAbout")}</h2>
 
           {/* Lead line — the opening sentence, pulled out and enlarged
-              (text-lead token, §4). Largest text in the section; carries it
-              in place of a visible heading. */}
-          <p className="max-w-measure text-lead text-text-primary">
+              (§4). Largest text in the section; carries it in place of a
+              visible heading. 22px below md, 26px from md up (md:text-lead
+              fully restores the desktop rule); text-balance evens the rag,
+              reset to default wrapping at md so desktop is untouched. */}
+          <p className="mx-auto max-w-measure text-balance text-lead-sm text-text-primary md:mx-0 md:text-lead md:text-wrap">
             {t("aboutLead")}
           </p>
 
@@ -69,21 +74,25 @@ export default function About() {
               so the lead clearly leads. Secondary on the bare gradient can
               dip to ~4.25:1 at the dark end on narrow phones (§8) — kept per
               spec. Same max-w-measure as the lead so the left edge lines up. */}
-          <p className="mt-[18px] max-w-measure text-[15.5px] leading-[1.7] text-text-secondary">
+          <p className="mx-auto mt-[18px] max-w-measure text-[15.5px] leading-[1.7] text-text-secondary md:mx-0">
             {t("aboutBody")}
           </p>
 
-          {/* Compressed byline — the three demoted facts as one wrapping
-              line. Each specific value is primary/medium; connective words
-              ("Internet Systems @") and the "/" separators stay quiet. The
-              separators are decorative (aria-hidden); the list stays
-              semantic so it reads as three items and each part is a locale
-              key. */}
-          <ul className="mt-2 flex flex-wrap items-center gap-x-3.5 gap-y-2 text-[13.5px] text-text-secondary">
+          {/* Byline — the three demoted facts. Below md it's a centred
+              vertical stack (one fact per line, no separators — they'd
+              orphan on wrap); from md up it's exactly the previous inline
+              row (md:mt-2 / md:flex-row / md:flex-wrap / md:items-center /
+              md:gap-x-3.5 / md:gap-y-2 — md:items-center already covered the
+              desktop row, so switching the base to items-center is
+              mobile-only). Each specific value is primary/medium; connective
+              words and the "/" separators stay quiet. Separators are
+              decorative (aria-hidden); the list stays semantic — three
+              items, each part a locale key. */}
+          <ul className="mt-4 flex flex-col items-center gap-y-1 text-[13.5px] text-text-secondary md:mt-2 md:flex-row md:flex-wrap md:items-center md:gap-x-3.5 md:gap-y-2">
             <li className="font-medium text-text-primary">
               {t("aboutBylineLocation")}
             </li>
-            <li aria-hidden="true" className="text-text-muted">
+            <li aria-hidden="true" className="hidden text-text-muted md:inline">
               /
             </li>
             <li>
@@ -92,7 +101,7 @@ export default function About() {
                 {t("aboutBylineSchool")}
               </span>
             </li>
-            <li aria-hidden="true" className="text-text-muted">
+            <li aria-hidden="true" className="hidden text-text-muted md:inline">
               /
             </li>
             <li className="font-medium text-text-primary">
@@ -121,8 +130,10 @@ export default function About() {
 
           {/* Social links — last in the stack. w-fit so the pill hugs its
               four icons (not w-full, no justify-between); the links, hover
-              states and focus rings are unchanged from before the move. */}
-          <ul className={`mt-[26px] flex w-fit items-center gap-1 p-1 ${SURFACE}`}>
+              states and focus rings are unchanged from before the move.
+              mx-auto centres the hugged pill below md; md:mx-0 / md:mt-[26px]
+              hold the desktop position exactly; mt-6 tightens it below md. */}
+          <ul className={`mx-auto mt-6 flex w-fit items-center gap-1 p-1 md:mx-0 md:mt-[26px] ${SURFACE}`}>
             {socials.map(({ href, label, Icon }) => (
               <li key={href}>
                 <a
