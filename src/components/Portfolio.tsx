@@ -1,116 +1,94 @@
-import { useCallback, useEffect, useState } from "react";
-import axios from "axios";
 import { useTranslation } from "react-i18next";
+import { FaGithub } from "react-icons/fa";
+import { FiExternalLink } from "react-icons/fi";
+import { projects } from "../data/projects";
+import ProjectsCarousel from "./ProjectsCarousel";
+import SectionHeading from "./SectionHeading";
 
-interface Repository {
-  id: string;
-  name: string;
-  description: string;
-  url: string;
-}
+// Redesign_Brief.md §7 — project cards are solid content, not glass: opaque
+// surface, no backdrop-filter. They still take the shared --glass-radius
+// corner and the system's one elevation shadow (§5 "Elevation without
+// color"), escalating to --shadow-hover on hover per §6.
+const CARD =
+  "group flex flex-col overflow-hidden rounded-glass border border-subtle bg-surface-solid shadow-glass " +
+  "transition-[transform,box-shadow] duration-150 ease-out hover:-translate-y-0.5 hover:shadow-hover " +
+  "motion-reduce:transition-none";
 
-interface PinnedItemEdge {
-  node: Repository;
-}
-
-interface PinnedItems {
-  edges: PinnedItemEdge[];
-}
-
-interface User {
-  pinnedItems: PinnedItems;
-}
-
-interface GithubResponse {
-  data: {
-    user: User;
-  };
-}
+const FOOTER_LINK =
+  "flex items-center gap-1.5 text-sm font-medium text-text-secondary transition-colors hover:text-text-primary " +
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-text-primary rounded-glass";
 
 export default function Portfolio() {
-  const [repos, setRepos] = useState<Repository[]>([]);
   const { t } = useTranslation();
-  const fetchRepos = useCallback(async () => {
-    const query = `
-      {
-        user(login: "mauriciocr22") {
-            pinnedItems(first: 4) {
-              edges {
-                node {
-                  ... on Repository {
-                    id
-                    name
-                    description
-                    url
-                  }
-                }
-              }
-            }
-          }
-      }
-    `;
-
-    try {
-      const accessToken = import.meta.env.VITE_PERSONAL_ACCESS_TOKEN;
-      const response = await axios.post<GithubResponse>(
-        "https://api.github.com/graphql",
-        {
-          query,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-
-      const pinnedItems = response.data.data.user.pinnedItems.edges.map(
-        (edge) => edge.node
-      );
-      setRepos(pinnedItems);
-    } catch (err) {
-      console.error("Error fetching repos:", err);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchRepos();
-  }, [fetchRepos]);
 
   return (
     <section
       id="portfolio"
-      className="w-full flex flex-col items-center px-7 dark:bg-[#222222] -mb-[1px]"
+      className="w-full flex flex-col items-center px-canvas-margin-mobile py-16 md:px-canvas-margin-desktop"
     >
-      <h2 className="text-3xl text-slate-600 font-semibold mb-6 border-b-2 font-canada border-slate-600 dark:text-slate-200 dark:border-slate-200">
-        {t("navProjects")}
-      </h2>
-      <div>
-        {repos.map((repo) => (
-          <div
-            key={repo.id}
-            className="mb-4 w-full h-full iphone:h-24 flex space-between border border-gray-500 rounded-md dark:text-slate-200"
-          >
-            <div className="w-9/12 p-3">
-              <h3 className="font-medium text-lg font-canada mb-1 duration-[0s]">
-                {repo.name}
+      <SectionHeading
+        title={t("navProjects")}
+        subtitle={t("projectsSubtitle")}
+      />
+
+      {/* Below 768px: horizontal scroll-snap coverflow row (ProjectsCarousel).
+          At 768px and up: the grid below, unchanged. */}
+      <ProjectsCarousel projects={projects} />
+
+      <div className="hidden w-full max-w-[1000px] gap-panel-gap md:grid md:grid-cols-2">
+        {projects.map((project) => (
+          <article key={project.slug} className={CARD}>
+            <div className="aspect-video w-full overflow-hidden">
+              <img
+                src={project.image}
+                alt=""
+                className="h-full w-full object-cover grayscale transition-[filter] duration-300 ease-out group-hover:grayscale-0 motion-reduce:transition-none"
+              />
+            </div>
+
+            <div className="flex flex-1 flex-col p-4">
+              <h3 className="font-canada text-lg font-medium text-text-primary">
+                {project.title}
               </h3>
-              <p className="font-canada leading-tight duration-[0s]">
-                {repo.description}
+              <p className="mt-1 line-clamp-6 min-h-[8.25em] font-canada text-sm leading-snug text-text-secondary md:line-clamp-4 md:min-h-[5.5em]">
+                {t(`projects.${project.slug}.description`)}
               </p>
+
+              <ul className="mt-3 flex flex-nowrap items-start gap-1.5 overflow-x-auto">
+                {project.techStack.map((tech) => (
+                  <li
+                    key={tech}
+                    className="shrink-0 rounded-full border border-subtle bg-subtle px-2.5 py-0.5 text-xs text-text-secondary"
+                  >
+                    {tech}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="flex items-center gap-4 pt-4">
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={FOOTER_LINK}
+                >
+                  <FaGithub size={16} />
+                  {t("projectsGithubCta")}
+                </a>
+                {project.liveUrl && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={FOOTER_LINK}
+                  >
+                    <FiExternalLink size={16} />
+                    {t("projectsLiveCta")}
+                  </a>
+                )}
+              </div>
             </div>
-            <div className="w-3/12">
-              <a
-                href={repo.url}
-                className="h-full w-full projectsButton text-white font-medium text-lg bg-[#169444] flex items-center justify-center md:hover:bg-green-700 transition-colors duration-100"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {t("projectsCta")}
-              </a>
-            </div>
-          </div>
+          </article>
         ))}
       </div>
     </section>

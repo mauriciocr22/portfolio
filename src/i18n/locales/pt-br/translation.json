@@ -1,16 +1,131 @@
 {
-  "headerTitle": "Olá! Eu sou o",
-  "headerDescription": "Um desenvolvedor fullstack com paixão por desenvolvimento web.",
-  "headerCta": "Entrar em Contato",
+  "heroStatusPill": "Disponível para estágio",
+  "heroTagline": "Desenvolvedor fullstack construindo interfaces rápidas e caprichadas em React e Node.",
+  "heroContactCta": "Entrar em contato",
+  "heroResumeCta": "Baixar currículo",
   "navHome": "Início",
   "navAbout": "Sobre",
   "navSkills": "Habilidades",
   "navProjects": "Projetos",
   "navContact": "Contato",
-  "aboutText": "Sou um desenvolvedor brasileiro com uma grande paixão por programação, e a maior parte do que sei vem de arregaçar as mangas e mergulhar em projetos. Atualmente, estou cursando Sistemas para Internet na FATEC Rubens Lara, mas passei muito tempo aprendendo por conta própria os detalhes do desenvolvimento web, especialmente com React, TailwindCSS e Node.js. Adoro criar aplicações web elegantes e funcionais e estou sempre disposto a aprender mais e enfrentar novos desafios no mundo da tecnologia. Se quiser saber mais sobre mim, fique à vontade para entrar em contato ou baixar meu currículo!",
-  "aboutCta": "Baixar Currículo",
-  "projectsCta": "Acessar",
-  "contactText": "Entre em contato!",
+  "techStackHeading": "Stack de Tecnologias",
+  "techStackSubtitle": "O que eu uso no dia a dia — e o que ainda estou aprendendo.",
+  "techStackLearnMore": "Saiba Mais",
+  "techStackMoreCount": "+{{count}} mais",
+  "techStackModalClose": "Fechar",
+  "aboutLead": "A maior parte do que sei veio de construir coisas, não de aprender na teoria.",
+  "aboutBody": "A FATEC me deu a base; o resto veio de colocar projetos no ar e consertar o que quebrava. Trabalho principalmente com React, TypeScript e Node. O que me interessa é funcionar na mão de quem usa, não impressionar no código.",
+  "aboutPortraitAlt": "Retrato de Maurício Rodrigues",
+  "aboutGithubLabel": "GitHub",
+  "aboutLinkedinLabel": "LinkedIn",
+  "aboutWhatsappLabel": "WhatsApp",
+  "aboutBylineLocation": "Santos, Brasil",
+  "aboutBylineSchoolPrefix": "Sistemas para Internet @",
+  "aboutBylineSchool": "FATEC Rubens Lara",
+  "aboutBylineLanguages": "PT · EN",
+  "aboutSpeaksValue": "Português, Inglês",
+  "aboutStatusPill": "Aberto a estágios",
+  "projectsSubtitle": "Quatro coisas que construí do começo ao fim.",
+  "projectsLiveCta": "Demo Online",
+  "projectsGithubCta": "GitHub",
+  "contactTitle": "Vamos conversar.",
+  "contactSubtitle": "O jeito mais rápido de falar comigo é por e-mail.",
+  "contactWhatsappCta": "Iniciar conversa",
+  "contactCopyEmail": "Copiar endereço de e-mail",
+  "contactCopied": "Copiado",
+  "footerBuiltWith": "Feito com React, TypeScript e Tailwind",
+  "footerBackToTop": "Voltar ao topo",
   "portuguese": "Português",
-  "english": "Inglês"
+  "english": "Inglês",
+  "projects": {
+    "_draftNotice": "DRAFT — descriptions below are a first-pass PT-BR translation, not yet reviewed. Confirm wording before shipping.",
+    "habit-tracker": {
+      "description": "Um aplicativo full-stack de acompanhamento de hábitos, construído com Next.js e React 19. Acompanhe hábitos diários, visualize seu progresso ao longo do tempo e mantenha sequências para criar rotinas consistentes."
+    },
+    "architetando": {
+      "description": "Landing page criada para o escritório de arquitetura Achitetando."
+    },
+    "product-radar": {
+      "description": "Uma interface web moderna para análise inteligente de produtos de e-commerce. Analise automaticamente avaliações e notas de produtos da Amazon e do Mercado Livre usando inteligência artificial."
+    },
+    "esc-site": {
+      "description": "Landing page criada para a banda de rock ESC."
+    }
+  },
+  "techStack": {
+    "_draftNotice": "DRAFT — PT-BR strings below are a first-pass translation, not yet reviewed. Confirm wording before shipping.",
+    "categories": {
+      "languages": {
+        "intro": "Uma mistura do que uso no dia a dia — JavaScript e TypeScript — e linguagens que aprendi na faculdade ou por conta própria, como Java, C# e C++."
+      },
+      "frameworks": {
+        "intro": "React e Node.js sustentam a maior parte do que construo, com o TailwindCSS cuidando da estilização em quase todo projeto de frontend. Spring Boot e Styled Components completam o conjunto, vindos da faculdade e de projetos paralelos."
+      },
+      "databases": {
+        "intro": "PostgreSQL e Prisma são minha dupla preferida na maioria dos projetos, com o MongoDB na jogada desde um curso anterior."
+      },
+      "tools": {
+        "intro": "Git e Docker são partes constantes de como trabalho, junto com o Railway para deploy e o Claude como parte do meu processo de desenvolvimento."
+      }
+    },
+    "technologies": {
+      "javascript": {
+        "description": "Minha principal linguagem de programação. Usada em projetos acadêmicos, pessoais e profissionais."
+      },
+      "typescript": {
+        "description": "Sempre uso junto com React e Node.js. Usado em projetos acadêmicos, pessoais e profissionais."
+      },
+      "java": {
+        "description": "Aprendi na faculdade. Usado em projetos acadêmicos e profissionais."
+      },
+      "csharp": {
+        "description": "Estudei e aprendi por conta própria. Usado principalmente em projetos pessoais."
+      },
+      "cpp": {
+        "description": "Estudei na faculdade. Usado principalmente em projetos acadêmicos."
+      },
+      "react": {
+        "description": "Minha tecnologia de front-end mais usada. Uso há anos, com componentes funcionais e de classe."
+      },
+      "react-native": {
+        "description": "Minha tecnologia mobile mais usada. Estudei na faculdade e usei em projetos acadêmicos e pessoais."
+      },
+      "nextjs": {
+        "description": "Estudei por conta própria e usei em projetos pessoais."
+      },
+      "nodejs": {
+        "description": "Minha tecnologia de back-end mais usada. Geralmente combinada com Prisma e PostgreSQL."
+      },
+      "tailwindcss": {
+        "description": "Meu framework de CSS favorito e mais usado. Usado na maioria dos meus projetos de front-end."
+      },
+      "styled-components": {
+        "description": "Estudei por conta própria e usei em projetos pessoais."
+      },
+      "spring-boot": {
+        "description": "Aprendi na faculdade e apliquei em projetos pessoais e acadêmicos. Usado no meu projeto KidsCoin."
+      },
+      "mongodb": {
+        "description": "Estudei e usei em projetos com Node.js através de um curso na Udemy."
+      },
+      "postgresql": {
+        "description": "Meu banco de dados mais usado, presente na maioria dos meus projetos."
+      },
+      "prisma": {
+        "description": "Meu ORM favorito e mais usado. Usado na maioria dos meus projetos com Node.js."
+      },
+      "docker": {
+        "description": "Usado em projetos pessoais e acadêmicos."
+      },
+      "railway": {
+        "description": "Usado para fazer o deploy do meu projeto KidsCoin com Spring Boot e PostgreSQL. Me familiarizei com a ferramenta."
+      },
+      "git": {
+        "description": "Git Flow para branches e controle de versão no dia a dia em todos os projetos que construí."
+      },
+      "claude": {
+        "description": "Usado com práticas estruturadas: desenvolvimento orientado a especificação com Spec Kit e TDD, não apenas 'vibe coding' casual."
+      }
+    }
+  }
 }

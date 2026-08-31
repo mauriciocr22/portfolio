@@ -1,9 +1,11 @@
 import About from "./components/About";
 import Contact from "./components/Contact";
-import Header from "./components/Header";
+import Footer from "./components/Footer";
 import Home from "./components/Home";
+import Nav from "./components/Nav";
 import Portfolio from "./components/Portfolio";
-import Skills from "./components/Skills";
+import TechMarquee from "./components/TechMarquee";
+import TechStack from "./components/TechStack";
 import useDarkMode from "./hooks/useDarkMode";
 
 function App() {
@@ -11,12 +13,14 @@ function App() {
 
   return (
     <div className="w-full h-full">
-      <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-      <Home darkMode={darkMode} />
+      <Nav darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+      <Home />
       <About />
-      <Skills />
+      <TechStack />
+      <TechMarquee />
       <Portfolio />
       <Contact />
+      <Footer />
     </div>
   );
 }

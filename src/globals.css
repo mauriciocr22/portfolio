@@ -2,6 +2,159 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Redesign_Brief.md §4 — the single display face (h1/h2 only), self-hosted
+ * from @fontsource-variable/bricolage-grotesque. Only the two subsets the
+ * brief calls for: `latin` and `latin-ext` (the latter is required, not
+ * optional — í/ã/õ/ç and the developer's own name would otherwise fall back
+ * mid-word). The package's own `index.css` also ships a `vietnamese` face;
+ * these two @font-face rules are declared by hand instead so that subset is
+ * left out. `wght`-axis file only — the scale never varies width or optical
+ * size. Ranges copied verbatim from the package's index.css.
+ */
+@font-face {
+  font-family: "Bricolage Grotesque Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url("@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2")
+    format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+    U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+    U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Bricolage Grotesque Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url("@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-ext-wght-normal.woff2")
+    format("woff2-variations");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+    U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+    U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
+}
+
+/*
+ * Design tokens — Redesign_Brief.md §3 (color) and §5 (glass, canvas & layout).
+ * useDarkMode toggles a `.dark` class on <body>, so overrides live on `.dark`
+ * rather than the brief's placeholder `[data-theme="dark"]` selector.
+ */
+:root {
+  --color-canvas: #fafafa;
+  /* App-wide backdrop. A single horizontal gradient painted on <body> and
+     shown through every section (none carry their own background), so the
+     whole page reads as one continuous canvas rather than stacked bands. */
+  --gradient-canvas: linear-gradient(to right, #ffffff, rgba(0, 0, 0, 0.2));
+  --color-surface-solid: #ffffff;
+  --color-text-primary: #141414;
+  --color-text-secondary: #5c5c5c;
+  --color-text-muted: #8a8a8a;
+  /* Resting nav links (Nav.tsx INTERACTIVE). A step darker than
+     --color-text-secondary so the nav reads a little stronger; still short
+     of --color-text-primary, which the hover/active state uses. Mirrors
+     lighter in dark mode, like the other text tokens. */
+  --color-nav-text: #454545;
+  --color-border: rgba(0, 0, 0, 0.1);
+  /* Same black/white as --color-border, bumped from 0.1 to 0.2 alpha so a
+     thin scrollbar thumb actually reads. Used by .tech-list-scrollbar
+     (Tech Stack category modal); mirrors to white in dark mode. */
+  --scrollbar-thumb: rgba(0, 0, 0, 0.2);
+
+  --color-button-bg: #141414;
+  --color-button-bg-hover: #2b2b2b;
+  --color-button-text: #ffffff;
+
+  --glass-blur: 10px;
+  --glass-radius: 16px;
+  --glass-bg: rgba(0, 0, 0, 0.04);
+  --glass-border: rgba(0, 0, 0, 0.12);
+  --glass-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
+  --shadow-hover: 0 12px 36px rgba(0, 0, 0, 0.2);
+
+  /* Nav-only contrast-safety scrim (Nav.tsx GLASS_PANEL / bg-nav-scrim). An
+     additive tint toward the mode's canvas — light in light mode, dark in
+     dark — that gives nav text a more predictable ground than whatever
+     scrolls past. Separate from --glass-bg (untouched). Best-effort per §5
+     "scrim, not a global opacity increase"; works alongside --nav-halo,
+     combined measured table in Nav.tsx. */
+  --nav-scrim: rgba(255, 255, 255, 0.2);
+
+  /* Nav-only legibility halo — a stacked text-shadow on nav text and the
+     matching drop-shadow on nav icons (tailwind.config.js .nav-halo /
+     .nav-halo-graphic, wired through Nav.tsx's INTERACTIVE + Logo.tsx).
+     Two layers: a tight dense core right at the glyph edge (0 0 1px / .65)
+     plus a soft spread (0 1px 4px / .5). Gives each glyph a local contrast
+     floor when the nav sits over busy scrolled content (the About photo
+     runs near-black to near-white in the nav's path). Light-mode text is
+     dark, so the halo is LIGHT; .dark mirrors it in black. Two custom
+     props, not one, so the icon's drop-shadow can restack the same layers
+     (drop-shadow() takes no comma list). Best-effort, not a WCAG-AA
+     guarantee — measured numbers in Nav.tsx. */
+  --nav-halo-core: 0 0 1px rgba(255, 255, 255, 0.65);
+  --nav-halo-spread: 0 1px 4px rgba(255, 255, 255, 0.5);
+
+  /* Redesign_Brief.md §5 "Per-component overrides" — TechMarquee's badges
+     only. Background/border now reuse --color-surface-solid/--color-border
+     (badges match the cards' solid look), so --marquee-badge-shadow is the
+     only override left here: shorter offset/blur than --glass-shadow,
+     proportionate to a compact control rather than a panel. */
+  --marquee-badge-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+
+  /* Redesign_Brief.md §5 "Corner treatment" — small controls (badges, tags,
+     chips) get their own proportional radius, not the panel-scale one.
+     No dark-mode override: radius doesn't change with theme. */
+  --radius-sm: 8px;
+
+  --canvas-margin-mobile: 16px;
+  --canvas-margin-desktop: 24px;
+  /* Responsive alias of the -mobile/-desktop pair above: one value that
+     swaps at the md breakpoint (see the media query below) so calc()
+     consumers — the hero's min-height / nav offset, Redesign_Brief.md §4 —
+     don't each need their own md: variant. */
+  --canvas-margin: var(--canvas-margin-mobile);
+  --panel-gap: 12px;
+
+  /* Rendered height of the fixed top-nav glass panel (Nav.tsx): a ~36px
+     control row + 12px×2 py-3 + 1px×2 border. The hero measures its
+     first-screen height against this (Redesign_Brief.md §4). Not
+     theme-dependent. */
+  --nav-height: 62px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --canvas-margin: var(--canvas-margin-desktop);
+  }
+}
+
+.dark {
+  --color-canvas: #0a0a0a;
+  --gradient-canvas: linear-gradient(to right, #0f0f0f, #1b1b1b);
+  --color-surface-solid: #141414;
+  --color-text-primary: #f5f5f5;
+  --color-text-secondary: #a3a3a3;
+  --color-text-muted: #707070;
+  --color-nav-text: #bdbdbd;
+  --color-border: rgba(255, 255, 255, 0.1);
+
+  --color-button-bg: #f5f5f5;
+  --color-button-bg-hover: #d6d6d6;
+  --color-button-text: #141414;
+
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+  --shadow-hover: 0 12px 36px rgba(0, 0, 0, 0.45);
+  --marquee-badge-shadow: 0 4px 16px rgba(0, 0, 0, 0.48);
+  --nav-scrim: rgba(0, 0, 0, 0.2);
+  /* Dark-mode nav text is light, so the halo mirrors to black. */
+  --nav-halo-core: 0 0 1px rgba(0, 0, 0, 0.65);
+  --nav-halo-spread: 0 1px 4px rgba(0, 0, 0, 0.5);
+  --scrollbar-thumb: rgba(255, 255, 255, 0.2);
+}
+
 body {
   -webkit-font-smoothing: antialiased;
 }
@@ -15,7 +168,12 @@ html {
 }
 
 body {
+  /* Ambient page background for the whole app. Every section is
+     background-less and floats its content directly over this gradient
+     (Redesign_Brief.md §5 "Three-layer model" — one continuous canvas is
+     the base surface, sections are content/panels on top of it). */
   @apply h-full w-full m-0 p-0;
+  background-image: var(--gradient-canvas);
 }
 
 section {
@@ -25,22 +183,6 @@ section {
 html,
 #root {
   @apply h-full;
-}
-
-.scrollWrapper {
-  @apply translate-x-1/2 translate-y-1/2 transition-opacity ease-in duration-500 absolute bottom-[calc(0%+64px)] right-1/2 [&>:nth-child(2)]:[animation-delay:-0.2s] [&>:nth-child(3)]:[animation-delay:-0.4s];
-}
-
-.arrowSpan {
-  @apply block w-5 h-5 border-b border-r border-green-600 border-solid rotate-45 -m-[10px] animate-scroll;
-}
-
-.contact a * {
-  @apply w-10 h-10 text-white;
-}
-
-.contact a {
-  @apply border rounded-md border-gray-500 p-2 bg-[#169444] md:hover:bg-green-700 transition-colors duration-100;
 }
 
 .navList {
@@ -56,22 +198,6 @@ html,
 
 .desktopNav li {
   @apply font-semibold text-green-700 dark:text-green-500 text-lg cursor-pointer relative after:content-[""] after:absolute after:h-[2px] after:left-0 after:bottom-0 after:w-0 after:bg-green-700 dark:after:bg-green-500 after:transition-all hover:after:w-full;
-}
-
-.aboutContact {
-  @apply hidden md:flex gap-3;
-}
-
-.aboutContact a * {
-  @apply w-8 h-8 text-slate-700 dark:text-slate-200;
-}
-
-.aboutContact a:hover * {
-  @apply text-green-700 dark:text-green-600 transition-all;
-}
-
-.projectsButton {
-  border-radius: 0 4px 4px 0;
 }
 
 @layer components {
@@ -94,5 +220,28 @@ html,
 
   .scrollbar::-webkit-scrollbar-thumb:hover {
     background: #c0a0b9;
+  }
+
+  /* Tech Stack category modal — the technology list's scrollbar. Thin,
+     transparent track, thumb = the panel's divider/border colour (Firefox
+     uses --color-border directly; the webkit thumb uses --scrollbar-thumb,
+     the same black/white at 0.2 alpha instead of 0.1 so it stays visible
+     at 6px). Both tokens are mode-aware, so no dark: overrides needed. */
+  .tech-list-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+  }
+
+  .tech-list-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .tech-list-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .tech-list-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 999px;
   }
 }
