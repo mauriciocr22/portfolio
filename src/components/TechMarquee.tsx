@@ -38,13 +38,6 @@ function Badge({ name, icon: Icon }: TechBadge) {
 // design constant like the glass tokens.
 const LOOP_SECONDS = 30;
 
-// Redesign_Brief.md §6 "Page-load: a brief fade/rise on primary content" —
-// this component just hadn't had that rule applied yet. Well under a
-// second so it's long gone before any single badge would clear the edge
-// mask during normal scroll (~2.5-3s at this track's speed), so it can't
-// be mistaken for the mask's own (untouched) crossfade.
-const MOUNT_FADE_SECONDS = 0.45;
-
 const BADGE_COUNT = TECH_BADGES.length;
 
 export default function TechMarquee() {
@@ -132,24 +125,17 @@ export default function TechMarquee() {
           scrollbar gutter, so the wrapper would overhang the body by half a
           scrollbar width and add a horizontal scrollbar.
           The mask fades both edges so badges dissolve in/out instead of
-          hard-clipping at the viewport boundary; that ongoing crossfade is
-          untouched by the mount fade below — separate concern, separate
-          element (this wrapper), separate transition. py-5 (not the
-          removed section's py-16) is a technical buffer, not layout
-          padding: it gives shadow-glass's blur radius room inside this
-          overflow-hidden box before it'd otherwise get clipped, same
-          reasoning as ProjectsCarousel's own py-5.
+          hard-clipping at the viewport boundary. py-5 (not the removed
+          section's py-16) is a technical buffer, not layout padding: it
+          gives shadow-glass's blur radius room inside this overflow-hidden
+          box before it'd otherwise get clipped, same reasoning as
+          ProjectsCarousel's own py-5.
 
-          initial={false} under reduced motion skips the mount animation
-          entirely — renders straight at the `animate` value, no transition
-          — rather than just zeroing the duration, per Redesign_Brief.md §8
-          and the same pattern every other motion rule in this project
-          already uses. */}
-      <motion.div
+          The section's scroll-in fade is applied once, uniformly with every
+          other section, by the shared <Reveal> wrapper in App.tsx — nothing
+          motion-driven sits on this element itself. */}
+      <div
         ref={wrapperRef}
-        initial={prefersReducedMotion ? false : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: MOUNT_FADE_SECONDS }}
         className={
           "w-full overflow-hidden py-5 " +
           "[mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)] " +
@@ -190,7 +176,7 @@ export default function TechMarquee() {
               ))}
           </motion.div>
         )}
-      </motion.div>
+      </div>
     </section>
   );
 }

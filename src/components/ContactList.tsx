@@ -77,9 +77,13 @@ export default function ContactList() {
     <>
       <div className={PANEL}>
         {/* Email — the primary row: taller, larger and heavier than the rest,
-            and not a plain link. Stacks (label above value) below `sm` so the
-            address never crowds its label on a ~390px screen. */}
-        <div className="flex flex-col gap-1 px-4 py-[17px] text-[15px] sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+            and not a plain link. Inline (label ↔ value on one line) from the
+            `iphone` breakpoint (376px) up — the 23-char address clears its
+            label and the copy button with ~40px to spare at that width, and
+            only more above it. It stacks label-above-value only below 376px,
+            the iPhone SE-class widths where it genuinely can't fit inline.
+            (Was gated at `sm`/640px, which stacked it on every phone.) */}
+        <div className="flex flex-col gap-1 px-4 py-[17px] text-[15px] iphone:flex-row iphone:items-center iphone:justify-between iphone:gap-4">
           <span className="text-text-secondary">Email</span>
           <span className="flex items-center gap-2">
             <a

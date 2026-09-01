@@ -3,6 +3,8 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
 import selfieImg from "../assets/foto-720.jpg";
 import selfieImg2x from "../assets/foto-1440.jpg";
+import useMediaQuery from "../hooks/useMediaQuery";
+import Reveal from "./Reveal";
 
 // Redesign_Brief.md §7 — About is content, not glass. The portrait is a
 // plain full-colour image. The one glass surface in the section is the
@@ -19,6 +21,13 @@ const SOCIAL_LINK =
 export default function About() {
   const { t } = useTranslation();
 
+  // Redesign_Brief.md §6 — the portrait leads the About reveal, the text
+  // column follows one beat later. Below md the section sits directly under
+  // the hero, so a scroll-triggered portrait would flash an empty square in
+  // the strip that's already on screen at load — there it animates in on
+  // mount instead (`immediate`).
+  const isMobile = useMediaQuery("(max-width: 767.98px)");
+
   const socials = [
     { href: "https://github.com/mauriciocr22", label: t("aboutGithubLabel"), Icon: FaGithub },
     { href: "https://www.linkedin.com/in/mauriciocr22/", label: t("aboutLinkedinLabel"), Icon: FaLinkedin },
@@ -34,7 +43,10 @@ export default function About() {
         {/* Left — just the portrait now; the social row moved into the
             content column. Centred below md with the rest of the section,
             left-aligned again from md up. */}
-        <div className="flex flex-col items-center md:items-start">
+        <Reveal
+          immediate={isMobile}
+          className="flex flex-col items-center md:items-start"
+        >
           {/* Below md: capped at 280px and centred (mx-auto). From md up:
               unchanged — fills the 320px grid track (md:mx-0 md:max-w-none).
               Scale only: aspect ratio, crop and object-position untouched.
@@ -52,12 +64,12 @@ export default function About() {
               className="h-full w-full object-cover"
             />
           </div>
-        </div>
+        </Reveal>
 
         {/* Right — lead → body → byline → status pill → social links.
             Centre-aligned below md (matching the hero and every section
             heading); left-aligned from md up, exactly as before. */}
-        <div className="text-center md:text-left">
+        <Reveal delay={0.15} className="text-center md:text-left">
           <h2 className="sr-only">{t("navAbout")}</h2>
 
           {/* Lead line — the opening sentence, pulled out and enlarged
@@ -147,7 +159,7 @@ export default function About() {
               </li>
             ))}
           </ul>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

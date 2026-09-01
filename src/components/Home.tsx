@@ -1,5 +1,13 @@
 import { useTranslation } from "react-i18next";
-import curriculumPDF from "../assets/curriculum.pdf";
+
+// The résumé is served from `public/` under its final download name, not
+// imported through Vite. A Vite-imported asset gets a hashed URL
+// (`curriculum-a1b2c3d4.pdf`), and the browser falls back to that basename
+// whenever it ignores the `download` attribute's suggested filename — which
+// it does for cross-origin responses, stale CDN copies, or a host that sends
+// its own Content-Disposition. A real file in `public/` keeps the clean
+// name in the URL itself, so the save name is correct regardless.
+const RESUME_URL = "/mauricio-rodrigues-resume.pdf";
 
 // Redesign_Brief.md §7 — the hero is content, not glass: no panel, no blur,
 // no border. Type comes from the §4 scale (the display face is on the h1
@@ -53,7 +61,7 @@ export default function Home() {
             {t("heroContactCta")}
           </a>
           <a
-            href={curriculumPDF}
+            href={RESUME_URL}
             download="mauricio-rodrigues-resume.pdf"
             className={BTN_OUTLINE}
           >
